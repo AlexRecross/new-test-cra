@@ -21,7 +21,7 @@ function getNameByID(identy) {
 	for (var i = 0; i < mockedAuthorsList.length; i++) {
 		var author = mockedAuthorsList[i];
 		if (author.id === identy) {
-			var name = author.name;
+			var name = ' ' + author.name;
 		}
 	}
 	return name;
@@ -47,10 +47,10 @@ function CourseCard() {
 							<p>{obj.description}</p>
 						</div>
 						<div className='description'>
-							<p>
+							<div className='authors'>
 								<b>Authors: </b>
 								{authorNames(obj.authors)}
-							</p>
+							</div>
 							<p>
 								<b>Duration: </b>
 								{toHoursAndMinutes(obj.duration)}

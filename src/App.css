@@ -37,3 +37,9 @@
 .courseCard button {
   margin-left: 30%;
 }
+
+.courseCard .authors {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
