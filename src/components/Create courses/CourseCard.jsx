@@ -17,20 +17,20 @@ function padToTwoDigits(num) {
 
 //Authors Name Getter
 function getNameByID(identy) {
-	var name = '';
-	for (var i = 0; i < mockedAuthorsList.length; i++) {
-		var author = mockedAuthorsList[i];
+	let name = '';
+	for (let i = 0; i < mockedAuthorsList.length; i++) {
+		let author = mockedAuthorsList[i];
 		if (author.id === identy) {
-			var name = ' ' + author.name;
+			name = ' ' + author.name;
 		}
 	}
 	return name;
 }
 function authorNames(arr) {
-	var authorsNames = [];
-	for (var i = 0; i < arr.length; i++) {
-		var item = arr[i];
-		var name = getNameByID(item);
+	let authorsNames = [];
+	for (let i = 0; i < arr.length; i++) {
+		let item = arr[i];
+		let name = getNameByID(item);
 		authorsNames.push(name);
 	}
 	return authorsNames;
