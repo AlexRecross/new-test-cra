@@ -1,28 +1,37 @@
 import React from 'react';
-// import mockedCoursesList from '../../constants';
-
-const test = [
-	{
-		id: 111,
-		title: 'test Title',
-		name: 'test Name',
-		description: 'lorem ipsum',
-	},
-	{
-		id: 222,
-		title: 'test Title 2',
-		name: 'test Name 2',
-		description: 'lorem ipsum lorem ipsum',
-	},
-];
+import { mockedCoursesList, mockedAuthorsList } from '../../Constants';
+import Button from '../../common/Button';
 
 function CourseCard() {
 	return (
 		<div>
-			{test.map((obj) => {
+			{mockedCoursesList.map((obj) => {
 				return (
 					<div key={obj.id} className='courseCard'>
-						<h2>{obj.title}</h2>,<h3>{obj.name}</h3>
+						<div className='report'>
+							<h2>{obj.title}</h2>
+							<p>{obj.description}</p>
+						</div>
+						<div className='description'>
+							<p>
+								<b>Authors: </b>
+								{obj.authors}
+							</p>
+							<p>
+								<b>Duration: </b>
+								{obj.duration}
+							</p>
+							<p>
+								<b>Created: </b>
+								{obj.creationDate}
+							</p>
+							<Button
+								name='Show course'
+								function={() => {
+									console.log('course showed');
+								}}
+							/>
+						</div>
 					</div>
 				);
 			})}

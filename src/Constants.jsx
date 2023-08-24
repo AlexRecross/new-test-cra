@@ -51,3 +51,5 @@ const mockedAuthorsList = [
 		name: 'Valentina Larina',
 	},
 ];
+
+export { mockedCoursesList, mockedAuthorsList };

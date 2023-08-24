@@ -25,5 +25,15 @@
 .courseCard {
   border: solid lightseagreen;
   margin: 10px;
-
+  padding: 10px;
+  display: flex;
+}
+.report {
+  width: 70%;
+}
+.description {
+  width: 30%;
+}
+.courseCard button {
+  margin-left: 30%;
 }
