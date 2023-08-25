@@ -1,6 +1,6 @@
 import React from 'react';
-import { mockedCoursesList, mockedAuthorsList } from '../../Constants';
-import Button from '../../common/Button';
+import { mockedCoursesList, mockedAuthorsList } from '../../../../Constants';
+import Button from '../../../../common/Button';
 
 //Duration time converter
 
@@ -26,7 +26,7 @@ function getNameByID(identy) {
 	}
 	return name;
 }
-function authorNames(arr) {
+function authorsNames(arr) {
 	let authorsNames = [];
 	for (let i = 0; i < arr.length; i++) {
 		let item = arr[i];
@@ -49,7 +49,7 @@ function CourseCard() {
 						<div className='description'>
 							<div className='authors'>
 								<b>Authors: </b>
-								{authorNames(obj.authors)}
+								{authorsNames(obj.authors)}
 							</div>
 							<p>
 								<b>Duration: </b>

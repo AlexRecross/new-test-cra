@@ -1,19 +1,27 @@
+/*reusable component style*/
+ button {
+  min-width: 110px;
+  min-height: 25px;
+  border: 1px solid palevioletred;
+  background-color: white;
+}
+
+
 /*header styles*/
 
 .header {
-  margin: 10px;
-  border: solid pink;
+  margin: 10px 10px 0 10px;
+  border: 1px solid pink;
   display: flex;
   justify-content: space-between;
 }
 
 .header button {
-  height: 30px;
   margin: 30px 10px;
 }
 
 .logo img {
-  height: 100px;
+  height: 80px;
   width: 200px;
 }
 
@@ -23,7 +31,7 @@
 
 /*course Cards style*/
 .courseCard {
-  border: solid lightseagreen;
+  border: 1px solid lightseagreen;
   margin: 10px;
   padding: 10px;
   display: flex;
@@ -42,4 +50,34 @@
   text-overflow: ellipsis;
   overflow: hidden;
   white-space: nowrap;
+}
+
+/*SearchBar styles*/
+
+.searchBar {
+  margin: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+.searchBar button {
+  margin-top: 8px;
+}
+.searchInput {
+  width: 330px;
+  height: 22px;
+  border: 1px solid sandybrown;
+}
+.searchButton {
+  width: 85px;
+  height: 22px;
+  margin: 10px;
+  border: 1px solid palevioletred;
+  background-color: white;
+}
+
+/*Courses full component styles*/
+
+.courses {
+  margin: 0 10px 10px 10px;
+  border: 1px solid lightseagreen;
 }
