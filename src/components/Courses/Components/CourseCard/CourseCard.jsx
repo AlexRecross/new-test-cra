@@ -1,52 +1,43 @@
 import React from 'react';
-import { mockedCoursesList, mockedAuthorsList } from '../../../../Constants';
 import Button from '../../../../common/Button';
+import toHoursAndMinutes from '../../../../helpers/pipeDurations';
 
-//Duration time converter
+function CourseCard(props) {
+	const coursesList = props.coursesList;
+	const authorsList = props.authorsList;
 
-function toHoursAndMinutes(totalMinutes) {
-	const hours = Math.floor(totalMinutes / 60);
-	const minutes = totalMinutes % 60;
+	//Authors Name Getter
 
-	return `${padToTwoDigits(hours)}:${padToTwoDigits(minutes)} hours`;
-}
-
-function padToTwoDigits(num) {
-	return num.toString().padStart(2, '0');
-}
-
-//Authors Name Getter
-function getNameByID(identy) {
-	let name = '';
-	for (let i = 0; i < mockedAuthorsList.length; i++) {
-		let author = mockedAuthorsList[i];
-		if (author.id === identy) {
-			name = ' ' + author.name;
+	function getNameByID(identify) {
+		let name = '';
+		for (let i = 0; i < authorsList.length; i++) {
+			let author = authorsList[i];
+			if (author.id === identify) {
+				name = ' ' + author.name;
+			}
 		}
+		return name;
 	}
-	return name;
-}
-function authorsNames(arr) {
-	let authorsNames = [];
-	for (let i = 0; i < arr.length; i++) {
-		let item = arr[i];
-		let name = getNameByID(item);
-		authorsNames.push(name);
+	function authorsNames(arr) {
+		let authorsNames = [];
+		for (let i = 0; i < arr.length; i++) {
+			let item = arr[i];
+			let name = getNameByID(item);
+			authorsNames.push(name);
+		}
+		return authorsNames;
 	}
-	return authorsNames;
-}
 
-function CourseCard() {
 	return (
-		<div>
-			{mockedCoursesList.map((obj) => {
+		<ul>
+			{coursesList.map((obj) => {
 				return (
-					<div key={obj.id} className='courseCard'>
+					<li key={obj.id} className='courseCard'>
 						<div className='report'>
 							<h2>{obj.title}</h2>
 							<p>{obj.description}</p>
 						</div>
-						<div className='description'>
+						<div className='specification'>
 							<div className='authors'>
 								<b>Authors: </b>
 								{authorsNames(obj.authors)}
@@ -61,15 +52,15 @@ function CourseCard() {
 							</p>
 							<Button
 								name='Show course'
-								function={() => {
+								functionOnClick={() => {
 									console.log('course showed');
 								}}
 							/>
 						</div>
-					</div>
+					</li>
 				);
 			})}
-		</div>
+		</ul>
 	);
 }
 

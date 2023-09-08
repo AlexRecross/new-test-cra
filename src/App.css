@@ -5,7 +5,9 @@
   border: 1px solid palevioletred;
   background-color: white;
 }
-
+* ul {
+  list-style-type: none;
+}
 
 /*header styles*/
 
@@ -39,7 +41,7 @@
 .report {
   width: 70%;
 }
-.description {
+.specification {
   width: 30%;
 }
 .courseCard button {
@@ -80,4 +82,71 @@
 .courses {
   margin: 0 10px 10px 10px;
   border: 1px solid lightseagreen;
+}
+.courses ul {
+  padding: 0;
+}
+/*createCourse style*/
+
+.inputTxtCC {
+  display: flex;
+  flex-direction: column;
+}
+.createCourseForm {
+  border: 1px solid lightseagreen;
+  margin: 10px;
+  padding: 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.createCourseHeader {
+  min-width: 100%;
+  margin: 10px 10px 0 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.titleButton {
+  margin: 10px 10px 0 10px;
+}
+
+.descriptionCC {
+  margin: 10px 10px 0 10px;
+  display: flex;
+  flex-direction: column;
+}
+
+.textareaCC {
+  border: 1px solid gold;
+}
+
+.specificationCC {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  margin: 10px;
+}
+
+.durationAndAuthorCC {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 10px;
+}
+
+.durationAndAuthorCC button {
+  width: 100px;
+  margin: 20px;
+}
+
+.authorsListCC {
+  margin: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.authorsListCC li {
+  display: flex;
+  justify-content: space-between;
 }

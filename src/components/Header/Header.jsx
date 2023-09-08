@@ -10,7 +10,7 @@ function Header() {
 				<span>Dave</span>
 				<Button
 					name='Logout'
-					function={() => {
+					functionOnClick={() => {
 						console.log('button is clicked');
 					}}
 				/>

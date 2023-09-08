@@ -52,4 +52,5 @@ const mockedAuthorsList = [
 	},
 ];
 
-export { mockedCoursesList, mockedAuthorsList };
+export { mockedCoursesList };
+export { mockedAuthorsList };
