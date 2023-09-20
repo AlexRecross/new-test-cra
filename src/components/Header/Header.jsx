@@ -9,11 +9,11 @@ function Header() {
 			<div>
 				<span>Dave</span>
 				<Button
-					name='Logout'
-					functionOnClick={() => {
-						console.log('button is clicked');
-					}}
-				/>
+					type='button'
+					// onClick={console.log('button "Logout" is clicked')}
+				>
+					Logout
+				</Button>
 			</div>
 		</div>
 	);

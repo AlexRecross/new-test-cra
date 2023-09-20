@@ -16,7 +16,7 @@ function Courses(props) {
 			<SearchBar
 				value={searchValue}
 				onChange={(event) => setSearchValue(event.target.value)}
-				setResuorseCC={props.setResuorseCC}
+				setResourceCC={props.setResourceCC}
 			/>
 			<CourseCard
 				authorsList={mockedAuthorsList}

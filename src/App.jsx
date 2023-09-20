@@ -5,17 +5,17 @@ import Courses from './components/Courses/Courses';
 import CreateCourse from './components/Create courses/CreateCourse';
 
 function App() {
-	const [resourse, setResourse] = useState(
-		<Courses setResuorseCC={setResuorseCC} />
+	const [resource, setResource] = useState(
+		<Courses setResourceCC={setResourceCC} />
 	);
-	function setResuorseCC() {
-		setResourse(<CreateCourse />);
+	function setResourceCC() {
+		setResource(<CreateCourse />);
 	}
 
 	return (
 		<div>
 			<Header />
-			{resourse}
+			{resource}
 		</div>
 	);
 }

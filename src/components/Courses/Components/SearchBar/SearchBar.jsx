@@ -17,7 +17,12 @@ function SearchBar(props) {
 				<input className='searchButton' type='button' value='Search' />
 			</div>
 			<div className='addButton'>
-				<Button name='Add new course' functionOnClick={props.setResuorseCC} />
+				<Button
+					type='button'
+					onClick={props.setResourceCC}
+				>
+					Add new course
+				</Button>
 			</div>
 		</div>
 	);
