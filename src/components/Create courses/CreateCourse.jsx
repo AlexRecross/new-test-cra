@@ -12,8 +12,9 @@ function CreateCourse() {
 	const [duration, setDuration] = useState(0);
 	const [authorsList, setAuthors] = useState(initialList);
 
-	const authorsSelected = authorsList.filter(({ selected }) => selected);
 	const authorsNotSelected = authorsList.filter(({ selected }) => !selected);
+	const authorsSelected = authorsList.filter(({ selected }) => selected);
+
 
 
 	function addNewAuthor() {
@@ -28,19 +29,11 @@ function CreateCourse() {
 		input.value = ''
 	}
 
-	function AvailableAuthors() {
-		return authorsListMap(authorsNotSelected, 'Authors', 'Add');
-	}
-	function ChosenAuthors() {
-		return authorsListMap(authorsSelected, 'Course authors', 'Delete');
-	}
-
-
-	function authorsListMap(authorsArr, listName, buttonName) {
-		if (authorsArr.length === 0) {
+	function AuthorsMap(props) {
+		if (props.authorsArr.length === 0) {
 			return (
 				<div>
-					<h2>{listName}</h2>
+					<h2>{props.listName}</h2>
 					<br />
 					<span>Author list is empty</span>
 				</div>
@@ -49,8 +42,8 @@ function CreateCourse() {
 			return (
 				<div>
 					<ul>
-						<h2>{listName}</h2>
-						{authorsArr.map((author) => {
+						<h2>{props.listName}</h2>
+						{props.authorsArr.map((author) => {
 							function authorSelectToggler() {
 								const newArray = authorsList.filter((obj) => obj.id !== author.id);
 								author.selected === true ?	author.selected = false : author.selected = true;
@@ -60,10 +53,7 @@ function CreateCourse() {
 							return (
 								<li key={author.id}>
 									<span>{author.name}</span>
-									<Button
-										type='button'
-										onClick={authorSelectToggler}
-									>{buttonName}</Button>
+									<Button type='button' onClick={authorSelectToggler}>{props.buttonName}</Button>
 								</li>
 							);
 						})}
@@ -73,25 +63,52 @@ function CreateCourse() {
 		}
 	}
 
-	console.log('render');
-	console.log(authorsList);
+	function handleSubmit(e) {
+		e.preventDefault();
+
+	}
+
+	function getFormData() {
+		const form = document.forms.createNewCourse;
+		const formData = new FormData(form);
+		const title = formData.get('title');
+		const description = formData.get('description');
+		const creationDate = new Date().toLocaleString().slice(0,10).replace(/\./g,'/')
+		const duration =formData.get('duration');
+		const authors = getAuthorsId()
+	}
+
+	function getAuthorsId() {
+		const authorsId = []
+		if(authorsSelected.length < 2){
+			console.log('course should have 2 authors at least')
+		}else{
+			for(var i = 0; i < authorsSelected.length; i++){
+				let id = authorsSelected[i].id;
+				authorsId.push(id)
+			}
+		}
+		return authorsId
+	}
+	// console.log('render');
+	// console.log(authorsList);
 	return (
 		<div>
 			<form
 				action='#'
 				className='createCourseForm'
 				name='createNewCourse'
-				// onSubmit={(e) => e.preventDefault()}
+				onSubmit={handleSubmit}
 			>
 				<div className='createCourseHeader'>
 					<div className='titleCC inputTxtCC'>
 						<label htmlFor='titleCC'>Title</label>
-						<input type='text' id='titleCC' placeholder='Enter title...' />
+						<input name='title' type='text' id='titleCC' placeholder='Enter title...' />
 					</div>
 					<div className='titleButton'>
 						<Button
 							type='button'
-							// onClick={console.log('button "Add new course" is clicked')}
+							onClick={handleSubmit}
 						>Create course</Button>
 					</div>
 				</div>
@@ -116,10 +133,7 @@ function CreateCourse() {
 								placeholder='Enter author name...'
 							/>
 							<br />
-							<Button
-								type='button'
-								onClick ={addNewAuthor}
-							>
+							<Button type='button' onClick ={addNewAuthor}>
 								Add new author
 							</Button>
 						</div>
@@ -130,6 +144,7 @@ function CreateCourse() {
 								<input
 									type='number'
 									id='durationCC'
+									name='duration'
 									placeholder='Enter duration in minutes'
 									onChange={(event) => setDuration(event.target.value)}
 								/>
@@ -138,8 +153,16 @@ function CreateCourse() {
 						</div>
 					</div>
 					<div className='authorsListCC'>
-						<AvailableAuthors />
-						<ChosenAuthors />
+						<AuthorsMap
+							authorsArr= { authorsNotSelected }
+							listName= 'Authors'
+							buttonName= 'Add author'
+						/>
+						<AuthorsMap
+							authorsArr= { authorsSelected }
+							listName= 'Course authors'
+							buttonName= 'Delete author'
+						/>
 					</div>
 				</div>
 			</form>

@@ -1,13 +1,13 @@
 import React from 'react';
 
-function Button({ children, name, functionOnClick, className, ...attr }) {
+function Button({ children, className, ...attr }) {
 	return (
 		<button
 			// onClick={functionOnClick}
 			{...attr}
 			className={`btn app-btn ${className || ''}`}
 		>
-			{children || name}
+			{children}
 		</button>
 	);
 }

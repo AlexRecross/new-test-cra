@@ -10,7 +10,7 @@ function Header() {
 				<span>Dave</span>
 				<Button
 					type='button'
-					// onClick={console.log('button "Logout" is clicked')}
+					onClick={()=>console.log('button "Logout" is clicked')}
 				>
 					Logout
 				</Button>

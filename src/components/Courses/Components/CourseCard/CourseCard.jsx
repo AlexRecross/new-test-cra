@@ -52,7 +52,7 @@ function CourseCard(props) {
 							</p>
 							<Button
 								name='Show course'
-								functionOnClick={() => {
+								onClick={() => {
 									console.log('course showed');
 								}}
 							/>
