@@ -3,15 +3,13 @@ import Button from '../../../../common/Button';
 import toHoursAndMinutes from '../../../../helpers/pipeDurations';
 
 function CourseCard(props) {
-	const coursesList = props.coursesList;
-	const authorsList = props.authorsList;
 
 	//Authors Name Getter
 
 	function getNameByID(identify) {
 		let name = '';
-		for (let i = 0; i < authorsList.length; i++) {
-			let author = authorsList[i];
+		for (let i = 0; i < props.authorsList.length; i++) {
+			let author = props.authorsList[i];
 			if (author.id === identify) {
 				name = ' ' + author.name;
 			}
@@ -30,7 +28,7 @@ function CourseCard(props) {
 
 	return (
 		<ul>
-			{coursesList.map((obj) => {
+			{props.coursesList.map((obj) => {
 				return (
 					<li key={obj.id} className='courseCard'>
 						<div className='report'>
@@ -51,11 +49,10 @@ function CourseCard(props) {
 								{obj.creationDate}
 							</p>
 							<Button
-								name='Show course'
 								onClick={() => {
 									console.log('course showed');
 								}}
-							/>
+							>Show course</Button>
 						</div>
 					</li>
 				);

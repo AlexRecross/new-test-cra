@@ -21,7 +21,7 @@ function SearchBar(props) {
 					type='button'
 					onClick={props.setResourceCC}
 				>
-					Add new course
+					Create new course
 				</Button>
 			</div>
 		</div>

@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
 import CourseCard from './Components/CourseCard/CourseCard';
 import SearchBar from './Components/SearchBar/SearchBar';
-import { mockedAuthorsList, mockedCoursesList } from '../../Constants';
+import Button from "../../common/Button";
 
-function Courses(props) {
+function Courses({ courses, authors, goToCreate }) {
 	const [searchValue, setSearchValue] = useState('');
 
-	const filteredCourses = mockedCoursesList.filter(
+	const filteredCourses = courses.filter(
 		(course) =>
 			course.title.toLowerCase().includes(searchValue.toLowerCase()) ||
 			course.id.toLowerCase().includes(searchValue.toLowerCase())
@@ -16,10 +16,10 @@ function Courses(props) {
 			<SearchBar
 				value={searchValue}
 				onChange={(event) => setSearchValue(event.target.value)}
-				setResourceCC={props.setResourceCC}
+				setResourceCC={goToCreate}
 			/>
 			<CourseCard
-				authorsList={mockedAuthorsList}
+				authorsList={authors}
 				coursesList={filteredCourses}
 			/>
 		</div>
