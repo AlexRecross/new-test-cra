@@ -2,7 +2,7 @@ import React from 'react';
 import Button from '../../../../common/Button';
 import Duration from '../../../../helpers/pipeDurations';
 
-function CourseCard({ courses, authors}) {
+function CourseCard({courses, authors}) {
 
 	return (
 		<ul>

@@ -4,6 +4,7 @@ import SearchBar from './Components/SearchBar/SearchBar';
 
 
 function Courses({ courses, authors, goToCreate }) {
+	//search component functionality
 	const [searchValue, setSearchValue] = useState('');
 
 	const filteredCourses = courses.filter(
@@ -11,6 +12,7 @@ function Courses({ courses, authors, goToCreate }) {
 			course.title.toLowerCase().includes(searchValue.toLowerCase()) ||
 			course.id.toLowerCase().includes(searchValue.toLowerCase())
 	);
+
 	return (
 		<div className='courses'>
 			<SearchBar
