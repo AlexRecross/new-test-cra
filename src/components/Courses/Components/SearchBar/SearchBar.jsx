@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from '../../../../common/Button';
 
-function SearchBar(props) {
+function SearchBar({value, onChange, setResourceCC}) {
 	return (
 		<div className='searchBar'>
 			<div className='searchPanel'>
@@ -10,8 +10,8 @@ function SearchBar(props) {
 						className='searchInput'
 						type='search'
 						placeholder='Enter course name or id...'
-						value={props.value}
-						onChange={props.onChange}
+						value={value}
+						onChange={onChange}
 					/>
 				</label>
 				<input className='searchButton' type='button' value='Search' />
@@ -19,7 +19,7 @@ function SearchBar(props) {
 			<div className='addButton'>
 				<Button
 					type='button'
-					onClick={props.setResourceCC}
+					onClick={setResourceCC}
 				>
 					Create new course
 				</Button>

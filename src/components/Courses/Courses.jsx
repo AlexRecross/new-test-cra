@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import CourseCard from './Components/CourseCard/CourseCard';
 import SearchBar from './Components/SearchBar/SearchBar';
-import Button from "../../common/Button";
+
 
 function Courses({ courses, authors, goToCreate }) {
 	const [searchValue, setSearchValue] = useState('');
@@ -19,8 +19,8 @@ function Courses({ courses, authors, goToCreate }) {
 				setResourceCC={goToCreate}
 			/>
 			<CourseCard
-				authorsList={authors}
-				coursesList={filteredCourses}
+				authors={authors}
+				courses={filteredCourses}
 			/>
 		</div>
 	);

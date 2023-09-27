@@ -1,58 +1,35 @@
 import React from 'react';
 import Button from '../../../../common/Button';
-import toHoursAndMinutes from '../../../../helpers/pipeDurations';
+import Duration from '../../../../helpers/pipeDurations';
 
-function CourseCard(props) {
-
-	//Authors Name Getter
-
-	function getNameByID(identify) {
-		let name = '';
-		for (let i = 0; i < props.authorsList.length; i++) {
-			let author = props.authorsList[i];
-			if (author.id === identify) {
-				name = ' ' + author.name;
-			}
-		}
-		return name;
-	}
-	function authorsNames(arr) {
-		let authorsNames = [];
-		for (let i = 0; i < arr.length; i++) {
-			let item = arr[i];
-			let name = getNameByID(item);
-			authorsNames.push(name);
-		}
-		return authorsNames;
-	}
+function CourseCard({ courses, authors}) {
 
 	return (
 		<ul>
-			{props.coursesList.map((obj) => {
+			{courses.map((course) => {
 				return (
-					<li key={obj.id} className='courseCard'>
+					<li key={course.id} className='courseCard'>
 						<div className='report'>
-							<h2>{obj.title}</h2>
-							<p>{obj.description}</p>
+							<h2>{course.title}</h2>
+							<p>{course.description}</p>
 						</div>
 						<div className='specification'>
 							<div className='authors'>
 								<b>Authors: </b>
-								{authorsNames(obj.authors)}
+								{course.authors.map(authorId => authors.find(({ id }) => id === authorId)?.name).join(', ')}
 							</div>
-							<p>
-								<b>Duration: </b>
-								{toHoursAndMinutes(obj.duration)}
-							</p>
+							<Duration value={course.duration}/>
 							<p>
 								<b>Created: </b>
-								{obj.creationDate}
+								{course.creationDate}
 							</p>
 							<Button
 								onClick={() => {
 									console.log('course showed');
 								}}
-							>Show course</Button>
+							>
+								Show course
+							</Button>
 						</div>
 					</li>
 				);

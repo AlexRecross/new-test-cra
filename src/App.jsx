@@ -4,7 +4,7 @@ import {mockedCoursesList, mockedAuthorsList} from "./Constants";
 import Header from './components/Header/Header.jsx';
 import Courses from './components/Courses/Courses';
 import CreateCourse from './components/Create courses/CreateCourse';
-import {v4 as uuidv4} from "uuid";
+// import {v4 as uuidv4} from "uuid";
 
 
 // function App() {
@@ -110,16 +110,20 @@ function NewApp() {
 		}
 	}, [page])
 
+	// console.log('render App')
+	console.log('authors in App', authors)
+	// console.log('courses in App', courses)
+
 return (
 	<div>
 		<Header />
 		<Component
 			courses={courses}
+			addCourse={course => setCourses(courses.concat(course))}
 			authors={authors}
+			addAuthor={author => setAuthors(authors.concat(author))}
 			goToCourses={() => setPage('courses')}
 			goToCreate={() => setPage('create-courses')}
-			addAuthor={author => setAuthors(authors.concat(author))}
-			addCourse={course => setCourses(courses.concat(course))}
 		/>
 	</div>
 )

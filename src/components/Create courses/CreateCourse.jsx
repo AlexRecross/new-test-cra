@@ -1,45 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Button from '../../common/Button';
-import toHoursAndMinutes from '../../helpers/pipeDurations';
+import Duration from '../../helpers/pipeDurations';
 import { v4 as uuidv4 } from 'uuid';
 
 
 
-function CreateCourse(props) {
-	// configure
-	const initialList = props.authors.map(item => ({ ...item, selected: false }))
+function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
+	// configure Authors
 
-	const [authorsList, setAuthorsList] = useState(initialList);
-	const [title, setTitle] = useState('');
-	const [description, setDescription] = useState('');
-
-	const [duration, setDuration] = useState(0);
-
+	const [authorsList, setAuthorsList] = useState(authors);
 	const authorsNotSelected = authorsList.filter(({ selected }) => !selected);
 	const authorsSelected = authorsList.filter(({ selected }) => selected);
+	useEffect( () => {
+		setAuthorsList(authors.map(item => ({ ...item, selected: false })))
+	}, [authors])
+
+
+	// Form States
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
+	const [duration, setDuration] = useState(0);
 
 	//New author
 	const [newAuthorName, setNewAuthorName] = useState('');
 
-	function createNewAuthor(){
+	function getNewAuthor(){
 		const input = document.getElementById('InputAuthorsName');
 		if (!/^[A-Z][A-Za-z]+\s+[A-Z][A-Za-z]/.test(newAuthorName)) {
+			input.value = ''
 			return alert('Please enter your FullName');
 		}
 		const newAuthor = { id: uuidv4(), name: newAuthorName};
 		input.value = ''
+		setNewAuthorName('')
 		return newAuthor
 	}
 
-	// function addNewAuthor() {
-	// 	props.addAuthor(createNewAuthor())
-	// }
+	function resetSelectedAuthors() {
+		setAuthorsList(authors.map(item => ({ ...item, selected: false })))
+	}
 
-	function AuthorsMap(props) {
-		if (props.authorsArr.length === 0) {
+	function AuthorsMap({authors, listName, buttonName}) {
+		if (authors.length === 0) {
 			return (
 				<div>
-					<h2>{props.listName}</h2>
+					<h2>{listName}</h2>
 					<br />
 					<span>Author list is empty</span>
 				</div>
@@ -48,8 +53,8 @@ function CreateCourse(props) {
 			return (
 				<div>
 					<ul>
-						<h2>{props.listName}</h2>
-						{props.authorsArr.map((author) => {
+						<h2>{listName}</h2>
+						{authors.map((author) => {
 							function authorSelectToggler() {
 								const newArray = authorsList.filter((obj) => obj.id !== author.id);
 								author.selected === true ?	author.selected = false : author.selected = true;
@@ -59,7 +64,7 @@ function CreateCourse(props) {
 							return (
 								<li key={author.id}>
 									<span>{author.name}</span>
-									<Button type='button' onClick={authorSelectToggler}>{props.buttonName}</Button>
+									<Button type='button' onClick={authorSelectToggler}>{buttonName}</Button>
 								</li>
 							);
 						})}
@@ -72,7 +77,7 @@ function CreateCourse(props) {
 	function getAuthorsId() {
 		const authorsId = []
 		if(authorsSelected.length < 2){
-			alert('course should have 2 authors at least')
+			return alert('course should have 2 authors at least')
 		}else{
 			for(let i = 0; i < authorsSelected.length; i++){
 				let id = authorsSelected[i].id;
@@ -82,37 +87,57 @@ function CreateCourse(props) {
 		return authorsId
 	}
 
-	function createNewCourse() {
-		let newCourse = {};
-		const courseTitle = title;
-		const courseDescription = description;
+	function getCourseFormData() {
 		const creationDate = new Date().toLocaleString().slice(0,10).replace(/\./g,'/')
-		if( title === '' && description === '' && duration === '' || duration <= 0) {
-			return alert('Some field is not filled in!')
-		}
-		newCourse = {
+
+		return {
 			id:  uuidv4(),
-			title: courseTitle,
-			description: courseDescription,
+			title: title,
+			description: description,
 			creationDate: creationDate,
 			duration: parseInt(duration, 10),
 			authors: getAuthorsId()
 		}
-		return newCourse
+	}
+	function validateCourseFormData() {
+		if( title === '') {
+			alert('Field "Title" is not filled in!')
+			return false
+		}
+		if( description === '') {
+			alert('Field "Description" is not filled in!')
+			return false
+		}
+		if( authorsSelected.length < 2) {
+			alert('The course must include at least two authors!')
+			return false
+		}
+		if(duration === '' || duration <= 0) {
+			alert('Field "Duration" is not filled in!')
+			return false
+		}
+		return true
 	}
 
-	// function setNewCourses() {
-	// 	const newCourses = props.courses.concat(createNewCourse());
-	// 	props.addCource(createNewCourse())
-	// 	// props.setResourceCL()
-	// 	console.log(newCourses)
-	// 	console.log(props.courses)
-	// }
-	//
+	function handleSubmit(e){
+		e.preventDefault();
+		if(!validateCourseFormData()){
+			return alert('Form not valid');
+		}
+		const course = getCourseFormData();
+		addCourse(course)
+		goToCourses()
+	}
 
 	return (
-		<div className='createCourseForm'>
-			<Button onClick={props.goToCourses}> Back to courses</Button>
+		<form
+			name='createCourseForm'
+			className='createCourseForm'
+			onSubmit={handleSubmit}
+			action='#'
+			method="get"
+		>
+			<Button type='button' onClick={goToCourses}> Back to courses</Button>
 			<div className='createCourseHeader'>
 				<div className='titleCC inputTxtCC'>
 					<label htmlFor='titleCC'>Title</label>
@@ -125,9 +150,16 @@ function CreateCourse(props) {
 				</div>
 				<div className='titleButton'>
 					<Button
-						type='button'
-						onClick={()=>props.addCourse(createNewCourse())}
-					>Create course</Button>
+						type='submit'
+					>
+						Create course
+					</Button>
+					<Button
+						type='reset'
+						onClick={resetSelectedAuthors}
+					>
+						Reset course
+					</Button>
 				</div>
 			</div>
 			<div className='descriptionCC '>
@@ -152,8 +184,10 @@ function CreateCourse(props) {
 							onChange={event => setNewAuthorName(event.target.value)}
 						/>
 						<br />
-						<Button type='button'
-								onClick ={()=>props.addAuthor(createNewAuthor())}>
+						<Button type='button' onClick={() => {
+							const newAuthor =getNewAuthor()
+							newAuthor !== undefined ? addAuthor(newAuthor) : console.log('newAuthor false',newAuthor)
+						}}>
 							Add new author
 						</Button>
 					</div>
@@ -166,26 +200,26 @@ function CreateCourse(props) {
 								id='durationCC'
 								name='duration'
 								placeholder='Enter duration in minutes'
-								onChange={(event) => setDuration(event.target.value)}
+								onChange={(event) => setDuration(parseInt(event.target.value, 10))}
 							/>
-							<b>Duration: {toHoursAndMinutes(duration)}</b>
+							<Duration value={duration} />
 						</div>
 					</div>
 				</div>
 				<div className='authorsListCC'>
 					<AuthorsMap
-						authorsArr= { authorsNotSelected }
-						listName= 'Authors'
-						buttonName= 'Add author'
+						authors={authorsNotSelected}
+						listName='Authors'
+						buttonName='Add author'
 					/>
 					<AuthorsMap
-						authorsArr= { authorsSelected }
-						listName= 'Course authors'
-						buttonName= 'Delete author'
+						authors={authorsSelected}
+						listName='Course authors'
+						buttonName='Delete author'
 					/>
 				</div>
 			</div>
-		</div>
+		</form>
 	);
 }
 export default CreateCourse;
