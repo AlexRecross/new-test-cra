@@ -3,25 +3,19 @@ import Button from '../../common/Button';
 import Duration from '../../helpers/pipeDurations';
 import { v4 as uuidv4 } from 'uuid';
 
-
-
 function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
-	// configure Authors
+
+	// Authors list template
 
 	const [authorsList, setAuthorsList] = useState(authors);
 	const authorsNotSelected = authorsList.filter(({ selected }) => !selected);
 	const authorsSelected = authorsList.filter(({ selected }) => selected);
+
 	useEffect( () => {
 		setAuthorsList(authors.map(item => ({ ...item, selected: false })))
 	}, [authors])
 
-
-	// Form States
-	const [title, setTitle] = useState('');
-	const [description, setDescription] = useState('');
-	const [duration, setDuration] = useState(0);
-
-	//New author
+	//"Add New Author" functionality
 	const [newAuthorName, setNewAuthorName] = useState('');
 
 	function getNewAuthor(){
@@ -55,7 +49,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 					<ul>
 						<h2>{listName}</h2>
 						{authors.map((author) => {
-							function authorSelectToggler() {
+							function authorSelectToggle() {
 								const newArray = authorsList.filter((obj) => obj.id !== author.id);
 								author.selected === true ?	author.selected = false : author.selected = true;
 								newArray.push(author)
@@ -64,7 +58,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 							return (
 								<li key={author.id}>
 									<span>{author.name}</span>
-									<Button type='button' onClick={authorSelectToggler}>{buttonName}</Button>
+									<Button type='button' onClick={authorSelectToggle}>{buttonName}</Button>
 								</li>
 							);
 						})}
@@ -73,6 +67,12 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 			);
 		}
 	}
+
+
+	// Form States and data
+	const [title, setTitle] = useState('');
+	const [description, setDescription] = useState('');
+	const [duration, setDuration] = useState(0);
 
 	function getAuthorsId() {
 		const authorsId = []
@@ -89,16 +89,16 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 
 	function getCourseFormData() {
 		const creationDate = new Date().toLocaleString().slice(0,10).replace(/\./g,'/')
-
 		return {
 			id:  uuidv4(),
 			title: title,
 			description: description,
 			creationDate: creationDate,
-			duration: parseInt(duration, 10),
+			duration: duration,
 			authors: getAuthorsId()
 		}
 	}
+
 	function validateCourseFormData() {
 		if( title === '') {
 			alert('Field "Title" is not filled in!')
@@ -112,7 +112,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 			alert('The course must include at least two authors!')
 			return false
 		}
-		if(duration === '' || duration <= 0) {
+		if(duration <= 0) {
 			alert('Field "Duration" is not filled in!')
 			return false
 		}

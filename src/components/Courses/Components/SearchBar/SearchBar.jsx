@@ -17,10 +17,7 @@ function SearchBar({value, onChange, setResourceCC}) {
 				<input className='searchButton' type='button' value='Search' />
 			</div>
 			<div className='addButton'>
-				<Button
-					type='button'
-					onClick={setResourceCC}
-				>
+				<Button type='button' onClick={setResourceCC}>
 					Create new course
 				</Button>
 			</div>
