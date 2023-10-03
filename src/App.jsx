@@ -1,25 +1,23 @@
 import React, { useState, useMemo } from 'react';
 import './App.css';
-import {mockedCoursesList, mockedAuthorsList} from "./Constants";
-import Header from './components/Header/Header.jsx';
-import Courses from './components/Courses/Courses';
-import CreateCourse from './components/Create courses/CreateCourse';
-
+import {mockedCoursesList, mockedAuthorsList} from "./constants";
+import Header from './components/header/header.jsx';
+import Courses from './components/courses/courses';
+import CreateCourse from "./components/create-courses/create-course";
 
 function App() {
-	const [page, setPage] = useState('courses')
-
+	//common data
 	const [courses, setCourses] = useState(mockedCoursesList)
 	const [authors, setAuthors] = useState(mockedAuthorsList)
 
-
+	//template and render
+	const [page, setPage] = useState('courses')
 	const Component = useMemo(() => {
 		switch (page) {
 			default: return Courses;
 			case 'create-courses': return CreateCourse;
 		}
 	}, [page])
-
 	return (
 		<div>
 			<Header />
