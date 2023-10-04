@@ -1,0 +1,21 @@
+.courseCard {
+    border: 1px solid lightseagreen;
+    margin: 10px;
+    padding: 10px;
+    display: flex;
+}
+.report {
+    width: 70%;
+}
+.specification {
+    width: 30%;
+}
+.courseCard button {
+    margin-left: 30%;
+}
+
+.courseCard .authors {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}

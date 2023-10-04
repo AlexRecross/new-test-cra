@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styles from './create-course.module.css'
 import Button from '../../common/button';
 import Duration from "../duration/durations";
 import { v4 as uuidv4 } from 'uuid';
@@ -128,14 +129,14 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 	return (
 		<form
 			name='createCourseForm'
-			className='createCourseForm'
+			className={styles.createCourseForm}
 			onSubmit={handleSubmit}
 			action='#'
 			method="get"
 		>
 			<Button type='button' onClick={goToCourses}> Back to courses</Button>
-			<div className='createCourseHeader'>
-				<div className='titleCC inputTxtCC'>
+			<div className={styles.createCourseHeader}>
+				<div className={styles.inputTxtCC}>
 					<label htmlFor='titleCC'>Title</label>
 					<input
 						type='text'
@@ -144,7 +145,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 						onChange={(event) => setTitle(event.target.value)}
 					/>
 				</div>
-				<div className='titleButton'>
+				<div className={styles.titleButton}>
 					<Button
 						type='submit'
 					>
@@ -158,18 +159,18 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 					</Button>
 				</div>
 			</div>
-			<div className='descriptionCC '>
+			<div className={styles.descriptionCC}>
 				<label htmlFor='descriptionCC'>Description</label>
 				<textarea
-					className='textareaCC '
+					className={styles.textareaCC}
 					id='descriptionCC'
 					rows={4}
 					placeholder='Enter description'
 					onChange={(event) => setDescription(event.target.value)}
 				/>
 			</div>
-			<div className='specificationCC'>
-				<div className='durationAndAuthorCC'>
+			<div className={styles.specificationCC}>
+				<div className={styles.durationAndAuthorCC}>
 					<div>
 						<h2>Add author</h2>
 						<input
@@ -187,8 +188,8 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 							Add new author
 						</Button>
 					</div>
-					<div className='durationAndAuthorCC'>
-						<div className='inputTxtCC'>
+					<div className={styles.durationAndAuthorCC}>
+						<div className={styles.inputTxtCC}>
 							<h2>Duration</h2>
 							<label htmlFor='durationCC'>Duration</label>
 							<input
@@ -202,7 +203,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 						</div>
 					</div>
 				</div>
-				<div className='authorsListCC'>
+				<div className={styles.authorsListCC}>
 					<AuthorsMap
 						authors={authorsNotSelected}
 						listName='Authors'

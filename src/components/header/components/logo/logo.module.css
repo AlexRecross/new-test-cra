@@ -1,0 +1,8 @@
+.logo img {
+    height: 80px;
+    width: 200px;
+}
+
+.logo {
+    display: inline;
+}

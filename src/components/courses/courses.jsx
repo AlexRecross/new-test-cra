@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styles from './courses.module.css'
 import CourseCard from './components/course-card/course-card';
 import SearchBar from './components/search-bar/search-bar';
 
@@ -12,7 +13,7 @@ function Courses({ courses, authors, goToCreate }) {
 			course.id.toLowerCase().includes(searchValue.toLowerCase())
 	);
 	return (
-		<div className='courses'>
+		<div className={styles.courses}>
 			<SearchBar
 				value={searchValue}
 				onChange={(event) => setSearchValue(event.target.value)}

@@ -1,10 +1,11 @@
 import React from 'react';
-import Logo from './components/logo/courses-logo.jsx';
+import styles from './header.module.css'
+import Logo from './components/logo/logo.jsx';
 import Button from '../../common/button.jsx';
 
 function Header() {
 	return (
-		<div className='header'>
+		<div className={styles.header}>
 			<Logo />
 			<div>
 				<span>Dave</span>
