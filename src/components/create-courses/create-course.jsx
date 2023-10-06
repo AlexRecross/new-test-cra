@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './create-course.module.css'
 import Button from '../../common/button';
 import Duration from "../duration/durations";
+import AuthorsMap from "./component/authors-map";
 import { v4 as uuidv4 } from 'uuid';
 
 function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
@@ -30,40 +31,6 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 
 	function resetSelectedAuthors() {
 		setAuthorsList(authors.map(item => ({ ...item, selected: false })))
-	}
-
-	function AuthorsMap({authors, listName, buttonName}) {
-		if (authors.length === 0) {
-			return (
-				<div>
-					<h2>{listName}</h2>
-					<br />
-					<span>Author list is empty</span>
-				</div>
-			);
-		} else {
-			return (
-				<div>
-					<ul>
-						<h2>{listName}</h2>
-						{authors.map((author) => {
-							function authorSelectToggle() {
-								const newArray = authorsList.filter((obj) => obj.id !== author.id);
-								author.selected === true ?	author.selected = false : author.selected = true;
-								newArray.push(author)
-								setAuthorsList(newArray)
-							}
-							return (
-								<li key={author.id}>
-									<span>{author.name}</span>
-									<Button type='button' onClick={authorSelectToggle}>{buttonName}</Button>
-								</li>
-							);
-						})}
-					</ul>
-				</div>
-			);
-		}
 	}
 
 	// Form States, data and functionality
@@ -205,11 +172,15 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 				</div>
 				<div className={styles.authorsListCC}>
 					<AuthorsMap
+						authorsList={authorsList}
+						setAuthorsList={setAuthorsList}
 						authors={authorsNotSelected}
 						listName='Authors'
 						buttonName='Add author'
 					/>
 					<AuthorsMap
+						authorsList={authorsList}
+						setAuthorsList={setAuthorsList}
 						authors={authorsSelected}
 						listName='Course authors'
 						buttonName='Delete author'
