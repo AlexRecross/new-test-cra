@@ -9,27 +9,21 @@ function CourseCard({courses, authors}) {
 			{courses.map((course) => {
 				return (
 					<li key={course.id} className={styles.courseCard}>
-						<div className={styles.report}>
-							<h2>{course.title}</h2>
-							<p>{course.description}</p>
-						</div>
+						<dl className={styles.report}>
+							<dt><b>{course.title}</b></dt>
+							<dd>{course.description}</dd>
+						</dl>
 						<div className={styles.specification}>
-							<div className={styles.authors}>
-								<b>Authors: </b>
-								{course.authors.map(authorId => authors.find(({ id }) => id === authorId)?.name).join(', ')}
-							</div>
-							<Duration value={course.duration}/>
-							<p>
-								<b>Created: </b>
-								{course.creationDate}
-							</p>
-							<Button
-								onClick={() => {
-									console.log('course showed');
-								}}
-							>
-								Show course
-							</Button>
+							<dl >
+								<dt><b>Authors: </b></dt>
+								<dd className={styles.authors}>
+									{course.authors.map(authorId => authors.find(({ id }) => id === authorId)?.name).join(', ')}
+								</dd>
+								<Duration value={course.duration}/>
+								<dt><b>Created: </b></dt>
+								<dd>{course.creationDate}</dd>
+								<Button>Show course</Button>
+							</dl>
 						</div>
 					</li>
 				);

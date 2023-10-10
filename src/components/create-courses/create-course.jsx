@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styles from './create-course.module.css'
 import Button from '../../common/button';
 import Duration from "../duration/durations";
+import Input from "../../common/input";
 import AuthorsMap from "./component/authors-map";
 import { v4 as uuidv4 } from 'uuid';
 
@@ -10,13 +11,10 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 	//"Add New Author" functionality
 	const [newAuthorName, setNewAuthorName] = useState('');
 	function getNewAuthor(){
-		const input = document.getElementById('InputAuthorsName');
 		if (!/^[A-Z][A-Za-z]+\s+[A-Z][A-Za-z]/.test(newAuthorName)) {
-			input.value = ''
 			return alert('Please enter your FullName');
 		}
 		const newAuthor = { id: uuidv4(), name: newAuthorName};
-		input.value = ''
 		setNewAuthorName('')
 		return newAuthor
 	}
@@ -99,15 +97,14 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 		>
 			<Button type='button' onClick={goToCourses}> Back to courses</Button>
 			<div className={styles.createCourseHeader}>
-				<div className={styles.inputTxtCC}>
-					<label htmlFor='titleCC'>Title</label>
-					<input
-						type='text'
-						id='titleCC'
-						placeholder='Enter title...'
-						onChange={(event) => setTitle(event.target.value)}
-					/>
-				</div>
+				<Input
+					inputClassName={styles.inputTxtCC}
+					labelName='Title:'
+					inputId='inputForTitleCC'
+					type='text'
+					placeholder='Enter title...'
+					onChange={(event) => setTitle(event.target.value)}
+				/>
 				<div className={styles.titleButton}>
 					<Button
 						type='submit'
@@ -117,47 +114,49 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 				</div>
 			</div>
 			<div className={styles.descriptionCC}>
-				<label htmlFor='descriptionCC'>Description</label>
+				<label htmlFor='descriptionCC'><b>Description:</b></label>
 				<textarea
 					className={styles.textareaCC}
 					id='descriptionCC'
 					rows={4}
-					placeholder='Enter description'
+					placeholder='Enter description...'
 					onChange={(event) => setDescription(event.target.value)}
 				/>
 			</div>
 			<div className={styles.specificationCC}>
 				<div className={styles.durationAndAuthorCC}>
 					<div>
-						<h2>Add author</h2>
-						<input
-							id='InputAuthorsName'
+						<Input
+							inputClassName={styles.inputTxtCC}
+							labelName='Add author: '
+							inputId='InputAuthorsName'
 							type='text'
-							name='name'
+							name='Add author'
 							placeholder='Enter author name...'
-							onChange={event => setNewAuthorName(event.target.value)}
+							value={newAuthorName}
+							onChange={(event) => setNewAuthorName(event.target.value)}
 						/>
-						<br />
-						<Button type='button' onClick={() => {
-							const newAuthor =getNewAuthor()
-							newAuthor !== undefined ? addAuthor(newAuthor) : console.log('newAuthor false',newAuthor)
-						}}>
+						<Button
+							type='button'
+							onClick={() => {
+								const newAuthor =getNewAuthor()
+								newAuthor !== undefined ? addAuthor(newAuthor) : console.log('newAuthor false',newAuthor)
+							}}
+						>
 							Add new author
 						</Button>
 					</div>
 					<div className={styles.durationAndAuthorCC}>
-						<div className={styles.inputTxtCC}>
-							<h2>Duration</h2>
-							<label htmlFor='durationCC'>Duration</label>
-							<input
-								type='number'
-								id='durationCC'
-								name='duration'
-								placeholder='Enter duration in minutes'
-								onChange={(event) => setDuration(parseInt(event.target.value, 10))}
-							/>
-							<Duration value={duration} />
-						</div>
+						<Input
+							inputClassName={styles.inputTxtCC}
+							labelName='Duration:'
+							type='number'
+							inputId='durationCC'
+							name='Duration'
+							placeholder='Enter duration in minutes'
+							onChange={(event) => setDuration(parseInt(event.target.value, 10))}
+						/>
+						<Duration value={duration} />
 					</div>
 				</div>
 				<div className={styles.authorsListCC}>

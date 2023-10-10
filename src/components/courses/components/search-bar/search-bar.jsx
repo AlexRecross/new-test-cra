@@ -11,16 +11,14 @@ function SearchBar({ value, onChange, searchCourse, showCreateCourse }) {
 			action='#'
 			method="get"
 		>
-			<div>
-				<Input
-					labelName={'Search course: '}
-				  inputId={'inputForSearchbar'}
-				  type={'search'}
-					placeholder={'Enter course name or id...'}
-					value={value}
-					onChange={onChange}
-				/>
-			</div>
+			<Input
+				labelName={'Search course: '}
+			  inputId={'inputForSearchbar'}
+			  type={'search'}
+				placeholder={'Enter course name or id...'}
+				value={value}
+				onChange={onChange}
+			/>
 			<div>
 				<Button
 					type='submit'
