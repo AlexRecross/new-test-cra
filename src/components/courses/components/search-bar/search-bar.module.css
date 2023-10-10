@@ -1,20 +1,15 @@
 .searchBar {
-    margin: 10px;
     display: flex;
     justify-content: space-between;
+    margin: 8px 10px 10px;
 }
-.searchBar button {
-    margin-top: 8px;
-}
-.searchInput {
-    width: 330px;
+
+.searchBar input {
+    width: 230px;
     height: 22px;
     border: 1px solid sandybrown;
 }
-.searchButton {
-    width: 85px;
-    height: 22px;
-    margin: 10px;
-    border: 1px solid palevioletred;
-    background-color: white;
+
+.searchBar button {
+    margin-left: 10px;
 }

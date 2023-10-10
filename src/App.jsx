@@ -27,7 +27,7 @@ function App() {
 				authors={authors}
 				addAuthor={author => setAuthors(authors.concat(author))}
 				goToCourses={() => setPage('courses')}
-				goToCreate={() => setPage('create-courses')}
+				showCreateCourse={() => setPage('create-courses')}
 			/>
 		</div>
 	)

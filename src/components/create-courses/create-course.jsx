@@ -26,12 +26,8 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 	const authorsNotSelected = authorsList.filter(({ selected }) => !selected);
 	const authorsSelected = authorsList.filter(({ selected }) => selected);
 	useEffect( () => {
-		setAuthorsList(authors.map(item => ({ ...item, selected: false })))
+		setAuthorsList(authors.map(author => ({ ...author, selected: false })))
 	}, [authors])
-
-	function resetSelectedAuthors() {
-		setAuthorsList(authors.map(item => ({ ...item, selected: false })))
-	}
 
 	// Form States, data and functionality
 	const [title, setTitle] = useState('');
@@ -117,12 +113,6 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 						type='submit'
 					>
 						Create course
-					</Button>
-					<Button
-						type='reset'
-						onClick={resetSelectedAuthors}
-					>
-						Reset course
 					</Button>
 				</div>
 			</div>

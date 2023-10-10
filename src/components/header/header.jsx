@@ -1,12 +1,15 @@
 import React from 'react';
 import styles from './header.module.css'
-import Logo from './components/logo/logo.jsx';
+import Logo from '../../common/logo'
 import Button from '../../common/button.jsx';
 
 function Header() {
 	return (
 		<div className={styles.header}>
-			<Logo />
+			<Logo
+				height={80}
+				width={200}
+			/>
 			<div>
 				<span>Dave</span>
 				<Button
