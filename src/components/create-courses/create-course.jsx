@@ -4,21 +4,15 @@ import Button from '../../common/button';
 import Duration from "../duration/durations";
 import Input from "../../common/input";
 import AuthorsMap from "./component/authors-map";
+import AddNewAuthor from "./component/create-new-author";
 import { v4 as uuidv4 } from 'uuid';
 
 function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 
 	//"Add New Author" functionality
-	const [newAuthorName, setNewAuthorName] = useState('');
-	function getNewAuthor(){
-		if (!/^[A-Z][A-Za-z]+\s+[A-Z][A-Za-z]/.test(newAuthorName)) {
-			return alert('Please enter your FullName');
-		}
-		const newAuthor = { id: uuidv4(), name: newAuthorName};
-		setNewAuthorName('')
-		return newAuthor
+	function addNewAuthorToList(newAuthor) {
+		newAuthor !== undefined ? addAuthor(newAuthor) : console.log('newAuthor false',newAuthor)
 	}
-
 	// Authors list selected and nonSelected template and functionality
 	const [authorsList, setAuthorsList] = useState(authors);
 	const authorsNotSelected = authorsList.filter(({ selected }) => !selected);
@@ -28,9 +22,44 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 	}, [authors])
 
 	// Form States, data and functionality
-	const [title, setTitle] = useState('');
-	const [description, setDescription] = useState('');
-	const [duration, setDuration] = useState(0);
+	const [formState, setFormState] = useState({
+		id: '',
+		title: '',
+		description: '',
+		creationDate: '',
+		duration: 0,
+		authors: []
+	})
+
+	function setTitle(event) {
+		setFormState(prevState => {
+			return {
+				...prevState,
+				title: event.target.value
+			}
+		})
+	}
+
+	function setDescription(event) {
+		setFormState(prevState => {
+			return {
+				...prevState,
+				description: event.target.value
+			}
+		})
+	}
+
+	function setDuration(event) {
+		setFormState(prevState => {
+			return {
+				...prevState,
+				duration: parseInt(event.target.value, 10)
+			}
+		})
+	}
+	// const [title, setTitle] = useState('');
+	// const [description, setDescription] = useState('');
+	// const [duration, setDuration] = useState(0);
 
 	function getAuthorsId() {
 		const authorsId = []
@@ -49,31 +78,31 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 		const creationDate = new Date().toLocaleString().slice(0,10).replace(/\./g,'/')
 		return {
 			id:  uuidv4(),
-			title: title,
-			description: description,
+			// title: title,
+			// description: description,
 			creationDate: creationDate,
-			duration: duration,
+			// duration: duration,
 			authors: getAuthorsId()
 		}
 	}
 
 	function validateCourseFormData() {
-		if( title === '') {
-			alert('Field "Title" is not filled in!')
-			return false
-		}
-		if( description === '') {
-			alert('Field "Description" is not filled in!')
-			return false
-		}
+		// if( title === '') {
+		// 	alert('Field "Title" is not filled in!')
+		// 	return false
+		// }
+		// if( description === '') {
+		// 	alert('Field "Description" is not filled in!')
+		// 	return false
+		// }
 		if( authorsSelected.length < 2) {
 			alert('The course must include at least two authors!')
 			return false
 		}
-		if(duration <= 0) {
-			alert('Field "Duration" is not filled in!')
-			return false
-		}
+		// if(duration <= 0) {
+		// 	alert('Field "Duration" is not filled in!')
+		// 	return false
+		// }
 		return true
 	}
 
@@ -103,7 +132,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 					inputId='inputForTitleCC'
 					type='text'
 					placeholder='Enter title...'
-					onChange={(event) => setTitle(event.target.value)}
+					onChange={event => setTitle(event)}
 				/>
 				<div className={styles.titleButton}>
 					<Button
@@ -120,33 +149,16 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 					id='descriptionCC'
 					rows={4}
 					placeholder='Enter description...'
-					onChange={(event) => setDescription(event.target.value)}
+					onChange={event => setDescription(event)}
 				/>
 			</div>
 			<div className={styles.specificationCC}>
 				<div className={styles.durationAndAuthorCC}>
+					<AddNewAuthor
+						className={styles.inputTxtCC}
+						addAuthorToList={addNewAuthorToList}
+					/>
 					<div>
-						<Input
-							inputClassName={styles.inputTxtCC}
-							labelName='Add author: '
-							inputId='InputAuthorsName'
-							type='text'
-							name='Add author'
-							placeholder='Enter author name...'
-							value={newAuthorName}
-							onChange={(event) => setNewAuthorName(event.target.value)}
-						/>
-						<Button
-							type='button'
-							onClick={() => {
-								const newAuthor =getNewAuthor()
-								newAuthor !== undefined ? addAuthor(newAuthor) : console.log('newAuthor false',newAuthor)
-							}}
-						>
-							Add new author
-						</Button>
-					</div>
-					<div className={styles.durationAndAuthorCC}>
 						<Input
 							inputClassName={styles.inputTxtCC}
 							labelName='Duration:'
@@ -154,9 +166,9 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 							inputId='durationCC'
 							name='Duration'
 							placeholder='Enter duration in minutes'
-							onChange={(event) => setDuration(parseInt(event.target.value, 10))}
+							onChange={event => setDuration(event)}
 						/>
-						<Duration value={duration} />
+						<Duration value={formState.duration} />
 					</div>
 				</div>
 				<div className={styles.authorsListCC}>
