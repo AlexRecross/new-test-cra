@@ -1,10 +1,10 @@
-import React from "react";
-import {useState} from "react";
-import Input from "../../../common/input";
+import React, {useState} from "react";
 import { v4 as uuidv4 } from 'uuid';
+import styles from './create-new-author.module.css'
+import Input from "../../../common/input";
 import Button from "../../../common/button";
 
-export default function AddNewAuthor({ className, addAuthorToList}) {
+export default function AddNewAuthor({ addAuthorToList }) {
 	//"Add New Author" functionality
 	const [newAuthorName, setNewAuthorName] = useState('');
 
@@ -27,7 +27,7 @@ export default function AddNewAuthor({ className, addAuthorToList}) {
 	return(
 		<div>
 			<Input
-				inputClassName={className}
+				inputClassName={styles.inputTxt}
 				labelName='Add author: '
 				inputId='InputAuthorsName'
 				type='text'

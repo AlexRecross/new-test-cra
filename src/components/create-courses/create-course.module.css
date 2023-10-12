@@ -52,12 +52,3 @@
     margin: 20px;
 }
 
-.authorsListCC {
-    margin: 0 10px 10px 10px;
-    display: flex;
-    flex-direction: column;
-}
-.authorsListCC li {
-    display: flex;
-    justify-content: space-between;
-}

@@ -1,10 +1,20 @@
-import React from "react";
+import React, {useMemo} from "react";
+import styles from './authors-lists.module.css'
 import Button from "../../../common/button";
 
-export default function AuthorsLists({ className, authorsList, setAuthorsList }) {
+export default function AuthorsLists({ authorsList, setAuthorsList }) {
 
 	const authorsNotSelected = authorsList.filter(({ selected }) => !selected);
 	const authorsSelected = authorsList.filter(({ selected }) => selected);
+
+	// const authorsNotSelected = useMemo( () => {
+	// 	return authorsList.filter(({ selected }) => !selected);
+	// }, authorsList)
+
+	// const authorsSelected = useMemo( () => {
+	// 	return authorsList.filter(({ selected }) => selected);
+	// }, authorsList)
+
 
 	function selectToggle(authorId) {
 		const newArray = authorsList.filter((author) => author.id !== authorId);
@@ -53,7 +63,7 @@ export default function AuthorsLists({ className, authorsList, setAuthorsList })
 								type='button'
 								onClick={() => selectToggle(author.id)}
 							>
-								Add author
+								Delete author
 							</Button>
 						</li>
 					))}
@@ -62,7 +72,7 @@ export default function AuthorsLists({ className, authorsList, setAuthorsList })
 		} else {
 			return (
 				<ul>
-					<li><b>Selected authors empty</b></li>
+					<li><b>Authors not selected</b></li>
 				</ul>
 			)
 		}
@@ -72,7 +82,7 @@ export default function AuthorsLists({ className, authorsList, setAuthorsList })
 	// authorsSelected.length <= 1 ? console.log('authorsSelected', true, authorsSelected) : console.log('authorsSelected', false, authorsSelected)
 
 	return(
-		<div className={className}>
+		<div className={styles.authorsLists}>
 			{nonSelectedList()}
 			{selectedList()}
 		</div>
