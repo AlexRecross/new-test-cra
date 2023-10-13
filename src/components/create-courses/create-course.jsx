@@ -33,6 +33,9 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 	})
 
 	function setTitle(event) {
+		if(event.target.value !== '') {
+			return
+		}
 		setFormState(prevState => {
 			return {
 				...prevState,
@@ -58,6 +61,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 			}
 		})
 	}
+
 	function setId() {
 		setFormState(prevState => {
 			return {
@@ -66,6 +70,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 			}
 		})
 	}
+
 	function setCreationDate() {
 		setFormState(prevState => {
 			return {
@@ -77,7 +82,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 
 	function setAuthors() {
 		const ids = getAuthorsId()
-		console.log('selected authors id`s', ids)
+		// console.log('selected authors id`s', ids)
 		setFormState(prevState => {
 			return {
 				...prevState,
@@ -85,9 +90,6 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 			}
 		})
 	}
-	// const [title, setTitle] = useState('');
-	// const [description, setDescription] = useState('');
-	// const [duration, setDuration] = useState(0);
 
 	function getAuthorsId() {
 		const authorsId = []
@@ -97,28 +99,8 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 				authorsId.push(id)
 			}
 		}
-		// if(authorsSelected.length < 2){
-		// 	return alert('course should have 2 authors at least')
-		// }else{
-		// 	for(let i = 0; i < authorsSelected.length; i++){
-		// 		let id = authorsSelected[i].id;
-		// 		authorsId.push(id)
-		// 	}
-		// }
 		return authorsId
 	}
-
-	// function getCourseFormData() {
-	// 	const creationDate = new Date().toLocaleString().slice(0,10).replace(/\./g,'/')
-	// 	return {
-	// 		id:  uuidv4(),
-	// 		title: title,
-	// 		description: description,
-	// 		creationDate: creationDate,
-	// 		duration: duration,
-	// 		// authors: getAuthorsId()
-	// 	}
-	// }
 
 	// function validateCourseFormData() {
 	// 	if( title === '') {

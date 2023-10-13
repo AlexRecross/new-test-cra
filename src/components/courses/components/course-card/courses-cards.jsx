@@ -1,9 +1,14 @@
 import React from 'react';
-import styles from './course-card.module.css'
+import styles from './courses-cards.module.css'
 import Button from '../../../../common/button';
 import Duration from "../../../duration/durations";
 
-function CourseCard({courses, authors}) {
+function CoursesCards({courses, authors}) {
+
+	function authorsNameById(authorsId) {
+		return authorsId.map(authorId => authors.find(({ id }) => id === authorId)?.name).join(', ')
+	}
+
 	return (
 		<ul>
 			{courses.map((course) => {
@@ -17,7 +22,7 @@ function CourseCard({courses, authors}) {
 							<dl >
 								<dt><b>Authors: </b></dt>
 								<dd className={styles.authors}>
-									{course.authors.map(authorId => authors.find(({ id }) => id === authorId)?.name).join(', ')}
+									{authorsNameById(course.authors)}
 								</dd>
 								<Duration value={course.duration}/>
 								<dt><b>Created: </b></dt>
@@ -32,4 +37,4 @@ function CourseCard({courses, authors}) {
 	);
 }
 
-export default CourseCard;
+export default CoursesCards;

@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styles from './courses.module.css'
-import CourseCard from './components/course-card/course-card';
 import SearchBar from './components/search-bar/search-bar';
+import CoursesCards from "./components/course-card/courses-cards";
 
-function Courses({ courses, authors, showCreateCourse }) {
+export default function Courses({ courses, authors, showCreateCourse }) {
 
 	//search component functionality
 	const [searchValue, setSearchValue] = useState('');
@@ -26,7 +26,7 @@ function Courses({ courses, authors, showCreateCourse }) {
 				searchCourse={searchCourse}
 				showCreateCourse={showCreateCourse}
 			/>
-			<CourseCard
+			<CoursesCards
 				authors={authors}
 				courses={filteredCourses}
 			/>
@@ -34,4 +34,4 @@ function Courses({ courses, authors, showCreateCourse }) {
 	);
 }
 
-export default Courses;
+
