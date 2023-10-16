@@ -16,7 +16,6 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 		setAuthorsList(authors.map(author => ({ ...author, selected: false })))
 	}, [authors])
 
-
 	//"Add New Author" functionality
 	function addNewAuthorToList(newAuthor) {
 		newAuthor !== undefined ? addAuthor(newAuthor) : console.log('newAuthor false',newAuthor)
@@ -32,64 +31,12 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 		authors: []
 	})
 
-	function setTitle(event) {
-		if(event.target.value !== '') {
-			return
-		}
-		setFormState(prevState => {
-			return {
-				...prevState,
-				title: event.target.value
-			}
-		})
-	}
-
-	function setDescription(event) {
-		setFormState(prevState => {
-			return {
-				...prevState,
-				description: event.target.value
-			}
-		})
-	}
-
-	function setDuration(value) {
-		setFormState(prevState => {
-			return {
-				...prevState,
-				duration: value
-			}
-		})
-	}
-
-	function setId() {
-		setFormState(prevState => {
-			return {
-				...prevState,
-				id: uuidv4()
-			}
-		})
-	}
-
-	function setCreationDate() {
-		setFormState(prevState => {
-			return {
-				...prevState,
-				creationDate: new Date().toLocaleString().slice(0,10).replace(/\./g,'/')
-			}
-		})
-	}
-
-	function setAuthors() {
-		const ids = getAuthorsId()
-		// console.log('selected authors id`s', ids)
-		setFormState(prevState => {
-			return {
-				...prevState,
-				authors: ids
-			}
-		})
-	}
+	const handleChange = (evnt) => {
+		setFormState((prev) => ({
+			...prev,
+			[evnt.target.name]: evnt.target.value
+		}));
+	};
 
 	function getAuthorsId() {
 		const authorsId = []
@@ -102,46 +49,43 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 		return authorsId
 	}
 
-	// function validateCourseFormData() {
-	// 	if( title === '') {
-	// 		alert('Field "Title" is not filled in!')
-	// 		return false
-	// 	}
-	// 	if( description === '') {
-	// 		alert('Field "Description" is not filled in!')
-	// 		return false
-	// 	}
-	// 	if( authorsSelected.length < 2) {
-	// 		alert('The course must include at least two authors!')
-	// 		return false
-	// 	}
-	// 	if(duration <= 0) {
-	// 		alert('Field "Duration" is not filled in!')
-	// 		return false
-	// 	}
-	// 	return true
-	// }
+	function validateCourseFormData(course) {
+		if( course.title === '') {
+			alert('Field "Title" is not filled in!')
+			return false
+		}
+		if( course.description === '') {
+			alert('Field "Description" is not filled in!')
+			return false
+		}
+		if( course.authors.length < 2) {
+			alert('The course must include at least two authors!')
+			return false
+		}
+		if( course.duration <= 0) {
+			alert('Field "Duration" is not filled in!')
+			return false
+		}
+		return true
+	}
 
 	function createNewCourse() {
-		setId();
-		setCreationDate();
-		setAuthors()
-		console.log('formState', formState);
-		const newCourse = formState;
-		console.log('newCourse', newCourse);
-		return newCourse
+		const course = formState;
+		course.id= uuidv4();
+		course.creationDate= new Date().toLocaleString().slice(0,10).replace(/\./g,'/');
+		course.authors= getAuthorsId()
+		return course
 	}
 
 	function handleSubmit(e){
 		e.preventDefault();
-		const course = createNewCourse()
-		console.log('course', course)
-		// if(!validateCourseFormData()){
-		// 	return alert('Form not valid');
-		// }
-		// const course = getCourseFormData();
-		// addCourse(course)
-		// goToCourses()
+		const course =createNewCourse()
+		if(!validateCourseFormData(course)){
+			return alert('Form not valid');
+		}else{
+			addCourse(course)
+			goToCourses()
+		}
 	}
 
 	return (
@@ -157,10 +101,11 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 				<Input
 					inputClassName={styles.inputTxtCC}
 					labelName='Title:'
+					inputName='title'
 					inputId='inputForTitleCC'
 					type='text'
 					placeholder='Enter title...'
-					onChange={event => setTitle(event)}
+					onChange={handleChange}
 				/>
 				<div className={styles.titleButton}>
 					<Button
@@ -174,10 +119,11 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 				<label htmlFor='descriptionCC'><b>Description:</b></label>
 				<textarea
 					className={styles.textareaCC}
+					name='description'
 					id='descriptionCC'
 					rows={4}
 					placeholder='Enter description...'
-					onChange={event => setDescription(event)}
+					onChange={handleChange}
 				/>
 			</div>
 			<div className={styles.specificationCC}>
@@ -190,11 +136,12 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 						<Input
 							inputClassName={styles.inputTxtCC}
 							labelName='Duration:'
+							inputName='duration'
 							type='number'
 							inputId='durationCC'
 							name='Duration'
 							placeholder='Enter duration in minutes'
-							onChange={event => setDuration(parseInt(event.target.value, 10))}
+							onChange={handleChange}
 						/>
 						<Duration value={formState.duration} />
 					</div>
