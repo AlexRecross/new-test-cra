@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react';
-import styles from './create-course.module.css'
-import Button from '../../common/button';
-import Duration from "../duration/durations";
-import Input from "../../common/input";
+import { Container, Button, Input, Label, Form, Row} from "reactstrap";
+import toHoursAndMinutes from "../../common/to-hours-and-minutes";
 import AuthorsLists from "./component/authors-lists";
 import AddNewAuthor from "./component/create-new-author";
 import { v4 as uuidv4 } from 'uuid';
@@ -89,69 +87,87 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 	}
 
 	return (
-		<form
-			name='createCourseForm'
-			className={styles.createCourseForm}
-			onSubmit={handleSubmit}
-			action='#'
-			method="get"
-		>
-			<Button type='button' onClick={goToCourses}> Back to courses</Button>
-			<div className={styles.createCourseHeader}>
+		<Container fluid className='border  mt-1'>
+			<Form
+				name='createCourseForm'
+				// className={styles.createCourseForm}
+				onSubmit={handleSubmit}
+				action='#'
+				method="get"
+			>
+				<Button
+					className='mt-1 col-12'
+					color='danger'
+					outline
+					size='sm'
+					type='button'
+					onClick={goToCourses}
+				>
+					Back to courses
+				</Button>
+				<Label
+					for='courseTitle'
+					size='sm'
+				>
+					<b>Title:</b>
+				</Label>
 				<Input
-					inputClassName={styles.inputTxtCC}
-					labelName='Title:'
-					inputName='title'
-					inputId='inputForTitleCC'
+					bsSize='sm'
+					id='courseTitle'
+					name='title'
 					type='text'
-					placeholder='Enter title...'
+					placeholder='Enter title'
 					onChange={handleChange}
 				/>
-				<div className={styles.titleButton}>
-					<Button
-						type='submit'
-					>
-						Create course
-					</Button>
-				</div>
-			</div>
-			<div className={styles.descriptionCC}>
-				<label htmlFor='descriptionCC'><b>Description:</b></label>
-				<textarea
-					className={styles.textareaCC}
+				<Label
+					for='courseDescription'
+					size='sm'
+				>
+					<b>Description:</b>
+				</Label>
+				<Input
+					// bsSize='sm'
+					id='courseDescription'
 					name='description'
-					id='descriptionCC'
-					rows={4}
-					placeholder='Enter description...'
+					type='textarea'
+					placeholder='Enter description'
 					onChange={handleChange}
 				/>
-			</div>
-			<div className={styles.specificationCC}>
-				<div className={styles.durationAndAuthorCC}>
+				<Label
+					size='sm'
+					for='courseDuration'
+				>
+					<b>Duration: {toHoursAndMinutes(formState.duration)}</b>
+				</Label>
+				<Input
+					bsSize="sm"
+					id="courseDuration"
+					name="duration"
+					placeholder="Enter duration in minutes"
+					type="number"
+					// value={formState.duration}
+					onChange={handleChange}
+				/>
+				<Row xs='2' className='mt-1 mx-0'>
 					<AddNewAuthor
-						className={styles.inputTxtCC}
 						addAuthorToList={addNewAuthorToList}
 					/>
-					<div>
-						<Input
-							inputClassName={styles.inputTxtCC}
-							labelName='Duration:'
-							inputName='duration'
-							type='number'
-							inputId='durationCC'
-							name='Duration'
-							placeholder='Enter duration in minutes'
-							onChange={handleChange}
-						/>
-						<Duration value={formState.duration} />
-					</div>
-				</div>
-				<AuthorsLists
-					authorsList={authorsList}
-					setAuthorsList={setAuthorsList}
-				/>
-			</div>
-		</form>
+					<AuthorsLists
+						authorsList={authorsList}
+						setAuthorsList={setAuthorsList}
+					/>
+				</Row>
+				<Button
+					className='my-1 col-12'
+					color='success'
+					outline
+					size='sm'
+					type='submit'
+				>
+					Create course
+				</Button>
+			</Form>
+		</Container>
 	);
 }
 export default CreateCourse;

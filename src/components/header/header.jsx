@@ -1,25 +1,30 @@
 import React from 'react';
-import styles from './header.module.css'
 import Logo from '../../common/logo'
-import Button from '../../common/button.jsx';
+import { Button, Container, Row, Col } from 'reactstrap';
 
 function Header() {
 	return (
-		<div className={styles.header}>
-			<Logo
-				height={80}
-				width={200}
-			/>
-			<div>
-				<span>Dave</span>
-				<Button
-					type='button'
-					onClick={()=>console.log('button "Logout" is clicked')}
-				>
-					Logout
-				</Button>
-			</div>
-		</div>
+		<Container fluid className='border border-warning mt-1'>
+			<Row >
+				<Col className='col-10 d-inline-flex'>
+					<Logo className=''
+						height={80}
+						width={120}
+					/>
+				</Col>
+				<Col className='col-2  d-flex m-auto '>
+					<span className='m-auto p-1'>Dave</span>
+					<Button
+						color='success'
+						outline
+						size='sm'
+						onClick={()=>console.log('button "Logout" is clicked')}
+					>
+						Logout
+					</Button>
+				</Col>
+			</Row>
+		</Container>
 	);
 }
 

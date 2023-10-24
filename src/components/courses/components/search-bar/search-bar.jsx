@@ -1,40 +1,55 @@
 import React from 'react';
-import styles from './search-bar.module.css'
-import Button from '../../../../common/button';
-import Input from "../../../../common/input";
+import { Button, Form, InputGroup, Container, Input, Label, Row, Col } from 'reactstrap';
 
-function SearchBar({ value, onChange, searchCourse, showCreateCourse }) {
+export default function SearchBar({ value, onChange, searchCourse, showCreateCourse }) {
 	return (
-		<form
-			className={styles.searchBar}
-			onSubmit={searchCourse}
-			action='#'
-			method="get"
-		>
-			<Input
-				labelName={'Search course: '}
-			  inputId={'inputForSearchbar'}
-			  type={'search'}
-				placeholder={'Enter course name or id...'}
-				value={value}
-				onChange={onChange}
-			/>
-			<div>
-				<Button
-					type='submit'
-					onClick={searchCourse}
-				>
-					Search course
-				</Button>
-				<Button
-					type='button'
-					onClick={showCreateCourse}
-				>
-					Create new course
-				</Button>
-			</div>
-		</form>
+		<Container>
+			<Row>
+				<Col sm='10'>
+					<Form
+						onSubmit={searchCourse}
+					>
+						<InputGroup>
+							<Label
+								for="searchForm"
+								size="sm"
+							>
+								Search course:
+							</Label>
+							<Input
+								bsSize="sm"
+								id="searchForm"
+								name="search"
+								placeholder="Enter course name or id..."
+								type="text"
+								value={value}
+								onChange={onChange}
+							/>
+							<Button
+								color='warning'
+								outline
+								size='sm'
+								type='submit'
+							>
+								Search course
+							</Button>
+						</InputGroup>
+					</Form>
+				</Col>
+				<Col sm='2'>
+					<Button
+						color='danger'
+						outline
+						size='sm'
+						type='button'
+						onClick={showCreateCourse}
+					>
+						Create new course
+					</Button>
+				</Col>
+			</Row>
+
+		</Container>
+
 	);
 }
-
-export default SearchBar;

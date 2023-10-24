@@ -1,8 +1,6 @@
 import React, {useState} from "react";
 import { v4 as uuidv4 } from 'uuid';
-import styles from './create-new-author.module.css'
-import Input from "../../../common/input";
-import Button from "../../../common/button";
+import { Input, Label, Button, Col } from "reactstrap";
 
 export default function AddNewAuthor({ addAuthorToList }) {
 	//"Add New Author" functionality
@@ -17,7 +15,7 @@ export default function AddNewAuthor({ addAuthorToList }) {
 		return newAuthor
 	}
 
-	function newName(event) {
+	const newName = (event) => {
 		setNewAuthorName(event.target.value)
 	}
 	function addNewAuthor() {
@@ -25,23 +23,32 @@ export default function AddNewAuthor({ addAuthorToList }) {
 		addAuthorToList(newAuthor)
 	}
 	return(
-		<div>
+		<Col className='mt-1' >
+			<Label
+				for='authorName'
+				size='sm'
+			>
+				<b>Add author:</b>
+			</Label>
 			<Input
-				inputClassName={styles.inputTxt}
-				labelName='Add author: '
-				inputId='InputAuthorsName'
-				type='text'
-				name='Add author'
-				placeholder='Enter author name...'
+				bsSize='sm'
+				id='authorName'
+				name='authorName'
+				placeholder='Enter new author name'
+				type="text"
 				value={newAuthorName}
-				onChange={event => newName(event)}
+				onChange={newName}
 			/>
 			<Button
+				className='mt-1'
+				color='warning'
+				outline
+				size='sm'
 				type='button'
 				onClick={addNewAuthor}
 			>
-				Add new author
+				Add author
 			</Button>
-		</div>
+		</Col>
 	)
 }

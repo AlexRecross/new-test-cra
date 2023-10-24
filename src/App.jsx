@@ -1,4 +1,6 @@
 import React, { useState, useMemo } from 'react';
+import { Container } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import {mockedCoursesList, mockedAuthorsList} from "./constants";
 import Header from './components/header/header.jsx';
@@ -19,7 +21,7 @@ function App() {
 		}
 	}, [page])
 	return (
-		<div>
+		<Container fluid>
 			<Header />
 			<Component
 				courses={courses}
@@ -29,7 +31,7 @@ function App() {
 				goToCourses={() => setPage('courses')}
 				showCreateCourse={() => setPage('create-courses')}
 			/>
-		</div>
+		</Container>
 	)
 }
 

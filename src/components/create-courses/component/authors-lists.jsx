@@ -1,6 +1,5 @@
 import React, {useMemo} from "react";
-import styles from './authors-lists.module.css'
-import Button from "../../../common/button";
+import { Button, List, Col } from "reactstrap";
 
 export default function AuthorsLists({ authorsList, setAuthorsList }) {
 
@@ -21,48 +20,62 @@ export default function AuthorsLists({ authorsList, setAuthorsList }) {
 	}
 
 	return(
-		<div className={styles.authorsLists}>
+		<Col className='mt-1'>
 			{authorsNotSelected.length >= 1 ?
-				<ul>
+				<List>
 					<b>Available authors:</b>
 					{authorsNotSelected.map((author) => (
-						<li key={author.id}>
-							<span>{author.name}</span>
-							<Button
-								type='button'
-								onClick={() => selectToggle(author.id)}
-							>
-								Add author
-							</Button>
+						<li  className='row mt-1' key={author.id}>
+							<Col className='col-8' >
+								<span>{author.name}</span>
+							</Col>
+							<Col className='col-4'>
+								<Button
+									color='primary'
+									outline
+									size='sm'
+									type='button'
+									onClick={() => selectToggle(author.id)}
+								>
+									Select author
+								</Button>
+							</Col>
 						</li>
 					))}
-				</ul>
+				</List>
 				:
-				<ul>
+				<List>
 					<li><b>Available authors empty</b></li>
-				</ul>
+				</List>
 			}
 			{authorsSelected.length >= 1 ?
-				<ul>
+				<List>
 					<b>Selected authors:</b>
 					{authorsSelected.map((author) => (
-						<li key={author.id}>
-							<span>{author.name}</span>
-							<Button
-								type='button'
-								onClick={() => selectToggle(author.id)}
-							>
-								Delete author
-							</Button>
+						<li  className='row mt-1' key={author.id}>
+							<Col className='col-8' >
+								<span>{author.name}</span>
+							</Col>
+							<Col className='col-4'>
+								<Button
+									color='danger'
+									outline
+									size='sm'
+									type='button'
+									onClick={() => selectToggle(author.id)}
+								>
+									Delete author
+								</Button>
+							</Col>
 						</li>
 					))}
-				</ul>
+				</List>
 				:
-				<ul>
+				<List>
 					<li><b>Authors not selected</b></li>
-				</ul>
+				</List>
 			}
-		</div>
+		</Col>
 	)
 }
 

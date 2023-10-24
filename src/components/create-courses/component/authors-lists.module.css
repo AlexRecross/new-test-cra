@@ -1,9 +1,0 @@
-.authorsLists {
-    margin: 0 10px 10px 10px;
-    display: flex;
-    flex-direction: column;
-}
-.authorsLists li {
-    display: flex;
-    justify-content: space-between;
-}

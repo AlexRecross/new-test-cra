@@ -1,7 +1,6 @@
 import React from 'react';
-import styles from './courses-cards.module.css'
-import Button from '../../../../common/button';
-import Duration from "../../../duration/durations";
+import { Button, List} from "reactstrap";
+import toHoursAndMinutes from "../../../../common/to-hours-and-minutes";
 
 function CoursesCards({courses, authors}) {
 
@@ -10,30 +9,33 @@ function CoursesCards({courses, authors}) {
 	}
 
 	return (
-		<ul>
+		<List className='mt-1'>
 			{courses.map((course) => {
 				return (
-					<li key={course.id} className={styles.courseCard}>
-						<dl className={styles.report}>
+					<li key={course.id} className='row border border-success mt-1 mx-0'>
+						<dl className='col-7 m-1' >
 							<dt><b>{course.title}</b></dt>
 							<dd>{course.description}</dd>
 						</dl>
-						<div className={styles.specification}>
-							<dl >
-								<dt><b>Authors: </b></dt>
-								<dd className={styles.authors}>
+						<div className='col-4 m-1'>
+							<dl className='row'>
+								<dt className='col-4'><b>Authors: </b></dt>
+								<dd className='col-8'>
 									{authorsNameById(course.authors)}
 								</dd>
-								<Duration value={course.duration}/>
-								<dt><b>Created: </b></dt>
-								<dd>{course.creationDate}</dd>
-								<Button>Show course</Button>
+								<dt className='col-4'><b>Durations: </b></dt>
+								<dd className='col-8'>
+									{toHoursAndMinutes(course.duration)}
+								</dd>
+								<dt className='col-4'><b>Created: </b></dt>
+								<dd className='col-8'>{course.creationDate}</dd>
+								<Button color='success' outline>Show course</Button>
 							</dl>
 						</div>
 					</li>
 				);
 			})}
-		</ul>
+		</List>
 	);
 }
 

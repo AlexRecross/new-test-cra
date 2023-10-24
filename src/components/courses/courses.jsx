@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import styles from './courses.module.css'
+import { Container, Row } from 'reactstrap';
 import SearchBar from './components/search-bar/search-bar';
 import CoursesCards from "./components/course-card/courses-cards";
 
@@ -9,7 +9,8 @@ export default function Courses({ courses, authors, showCreateCourse }) {
 	const [searchValue, setSearchValue] = useState('');
 	const [filteredCourses, setFilteredCourses] = useState(courses)
 
-	function searchCourse() {
+	const searchCourse = (event) => {
+		event.preventDefault();
 		const coursesFiltered = courses.filter(
 			(course) =>
 				course.title.toLowerCase().includes(searchValue.toLowerCase()) ||
@@ -19,18 +20,22 @@ export default function Courses({ courses, authors, showCreateCourse }) {
 	}
 
 	return (
-		<div className={styles.courses}>
-			<SearchBar
-				value={searchValue}
-				onChange={(event) => setSearchValue(event.target.value)}
-				searchCourse={searchCourse}
-				showCreateCourse={showCreateCourse}
-			/>
-			<CoursesCards
-				authors={authors}
-				courses={filteredCourses}
-			/>
-		</div>
+		<Container className='border my-1'>
+			<Row className='mt-1'>
+				<SearchBar
+					value={searchValue}
+					onChange={(event) => setSearchValue(event.target.value)}
+					searchCourse={searchCourse}
+					showCreateCourse={showCreateCourse}
+				/>
+			</Row>
+			<Row>
+				<CoursesCards
+					authors={authors}
+					courses={filteredCourses}
+				/>
+			</Row>
+		</Container>
 	);
 }
 
