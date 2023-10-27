@@ -1,5 +1,5 @@
 import React, {useMemo} from "react";
-import { Button, List, Col } from "reactstrap";
+import { Button, List, Col, Row } from "reactstrap";
 
 export default function AuthorsLists({ authorsList, setAuthorsList }) {
 
@@ -19,16 +19,16 @@ export default function AuthorsLists({ authorsList, setAuthorsList }) {
 		setAuthorsList(newArray)
 	}
 
-	return <Col className='mt-1'>
+	return <Row xs='1' className='mt-1'>
 		{!authorsNotSelected.length ? <List type="unstyled">
 				<li><b>Available authors empty</b></li>
 			</List> : <List type="unstyled">
 				<b>Available authors:</b>
 				{authorsNotSelected.map((author) => <li  className='row mt-1' key={author.id}>
-					<Col className='col-8'>
+					<Col className='col-10 mt-1'>
 						<span>{author.name}</span>
 					</Col>
-					<Col className='col-4'>
+					<Col className='col-2'>
 						<Button
 							className='rounded-pill'
 							color='success'
@@ -48,24 +48,24 @@ export default function AuthorsLists({ authorsList, setAuthorsList }) {
 		</List> : <List type="unstyled">
 			<b>Selected authors:</b>
 			{authorsSelected.map((author) => <li className='row mt-1' key={author.id}>
-				<Col className='col-8'>
+				<Col className='col-10 mt-1'>
 					<span>{author.name}</span>
 				</Col>
-				<Col className='col-4'>
+				<Col className='col-2'>
 					<Button
-						color='danger'
 						className='rounded-pill'
+						color='danger'
 						outline
 						size='sm'
 						type='button'
 						onClick={() => selectToggle(author.id)}
 					>
-						Delete
+						delete
 					</Button>
 				</Col>
 			</li>)}
 		</List>}
-	</Col>
+	</Row>
 }
 
 

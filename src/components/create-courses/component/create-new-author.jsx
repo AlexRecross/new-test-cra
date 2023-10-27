@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { v4 as uuidv4 } from 'uuid';
-import { Input, Label, Button, Col } from "reactstrap";
+import { Input, Label, Button, Row, InputGroup } from "reactstrap";
 
 export default function AddNewAuthor({ addAuthorToList }) {
 	//"Add New Author" functionality
@@ -23,32 +23,36 @@ export default function AddNewAuthor({ addAuthorToList }) {
 		addAuthorToList(newAuthor)
 	}
 	return(
-		<Col className='mt-1' >
-			<Label
-				for='authorName'
-				size='sm'
-			>
-				<b>Add author:</b>
-			</Label>
-			<Input
-				bsSize='sm'
-				id='authorName'
-				name='authorName'
-				placeholder='Enter new author name'
-				type="text"
-				value={newAuthorName}
-				onChange={newName}
-			/>
-			<Button
-				className='mt-1 rounded-pill'
-				color='warning'
-				outline
-				size='sm'
-				type='button'
-				onClick={addNewAuthor}
-			>
-				Add
-			</Button>
-		</Col>
+		<Row xs='1' className='mt-1' >
+			<InputGroup>
+				<Label
+					className='mt-2'
+					for='authorName'
+					// size='sm'
+				>
+					<b>Add author:</b>
+				</Label>
+				<Input
+					className='mt-1 mx-1'
+					bsSize='sm'
+					id='authorName'
+					name='authorName'
+					placeholder='Enter new author name'
+					type="text"
+					value={newAuthorName}
+					onChange={newName}
+				/>
+				<Button
+					className='mt-1 col-2 rounded-end-pill'
+					color='warning'
+					outline
+					size='sm'
+					type='button'
+					onClick={addNewAuthor}
+				>
+					Add
+				</Button>
+			</InputGroup>
+		</Row>
 	)
 }

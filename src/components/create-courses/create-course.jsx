@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import { Container, Button, Input, Label, Form, Row} from "reactstrap";
+import { Container, Button, Input, Label, Form, Row, Col } from "reactstrap";
 import toHoursAndMinutes from "../../common/to-hours-and-minutes";
 import AuthorsLists from "./component/authors-lists";
 import AddNewAuthor from "./component/create-new-author";
@@ -87,87 +87,95 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 	}
 
 	return (
-		<Container fluid className='border border-primary mt-1'>
-			<Form
-				name='createCourseForm'
-				// className={styles.createCourseForm}
-				onSubmit={handleSubmit}
-				action='#'
-				method="get"
+		<div>
+			<Button
+				className='mt-1 col-12'
+				color='danger'
+				outline
+				size='sm'
+				type='button'
+				onClick={goToCourses}
 			>
-				<Button
-					className='mt-1 col-12'
-					color='danger'
-					outline
-					size='sm'
-					type='button'
-					onClick={goToCourses}
+				Back to courses
+			</Button>
+			<Container fluid className='border border-primary mt-1'>
+				<Form
+					name='createCourseForm'
+					// className={styles.createCourseForm}
+					onSubmit={handleSubmit}
+					action='#'
+					method="get"
 				>
-					Back to courses
-				</Button>
-				<Label
-					for='courseTitle'
-					size='sm'
-				>
-					<b>Title:</b>
-				</Label>
-				<Input
-					bsSize='sm'
-					id='courseTitle'
-					name='title'
-					type='text'
-					placeholder='Enter title'
-					onChange={handleChange}
-				/>
-				<Label
-					for='courseDescription'
-					size='sm'
-				>
-					<b>Description:</b>
-				</Label>
-				<Input
-					// bsSize='sm'
-					id='courseDescription'
-					name='description'
-					type='textarea'
-					placeholder='Enter description'
-					onChange={handleChange}
-				/>
-				<Label
-					size='sm'
-					for='courseDuration'
-				>
-					<b>Duration: {toHoursAndMinutes(formState.duration)}</b>
-				</Label>
-				<Input
-					bsSize="sm"
-					id="courseDuration"
-					name="duration"
-					placeholder="Enter duration in minutes"
-					type="number"
-					// value={formState.duration}
-					onChange={handleChange}
-				/>
-				<Row xs='2' className='border border-info mt-2 mx-0'>
-					<AuthorsLists
-						authorsList={authorsList}
-						setAuthorsList={setAuthorsList}
-					/>
-					<AddNewAuthor
-						addAuthorToList={addNewAuthorToList}
-					/>
-				</Row>
-				<Button
-					className='my-1 col-12'
-					color='success'
-					outline
-					size='sm'
-					type='submit'
-				>
-					Create
-				</Button>
-			</Form>
-		</Container>
-	);
+					<Row xs='2'>
+						<Col>
+							<Label
+								for='courseTitle'
+								size='sm'
+							>
+								<b>Title:</b>
+							</Label>
+							<Input
+								bsSize='sm'
+								id='courseTitle'
+								name='title'
+								type='text'
+								placeholder='Enter title'
+								onChange={handleChange}
+							/>
+							<Label
+								for='courseDescription'
+								size='sm'
+							>
+								<b>Description:</b>
+							</Label>
+							<Input
+								// bsSize='sm'
+								id='courseDescription'
+								name='description'
+								type='textarea'
+								placeholder='Enter description'
+								onChange={handleChange}
+							/>
+							<Label
+								size='sm'
+								for='courseDuration'
+							>
+								<b>Duration: {toHoursAndMinutes(formState.duration)}</b>
+							</Label>
+							<Input
+								bsSize="sm"
+								id="courseDuration"
+								name="duration"
+								placeholder="Enter duration in minutes"
+								type="number"
+								// value={formState.duration}
+								onChange={handleChange}
+							/>
+						</Col>
+						<Col className='mt-1'>
+							{/*<Row xs='2' className='border border-info mt-2 mx-0'>*/}
+							<AuthorsLists
+								authorsList={authorsList}
+								setAuthorsList={setAuthorsList}
+							/>
+							<AddNewAuthor
+								addAuthorToList={addNewAuthorToList}
+							/>
+							{/*</Row>*/}
+						</Col>
+					</Row>
+					<Button
+						className='my-1 col-12'
+						color='success'
+						outline
+						size='sm'
+						type='submit'
+					>
+						Create
+					</Button>
+				</Form>
+			</Container>
+		</div>
+	)
 }
 export default CreateCourse;
