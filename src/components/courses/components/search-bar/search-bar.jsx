@@ -17,11 +17,12 @@ export default function SearchBar({ value, onChange, searchCourse, showCreateCou
 								Search course:
 							</Label>
 							<Input
+								className='mx-1'
 								bsSize="sm"
 								id="searchForm"
 								name="search"
 								placeholder="Enter course name or id..."
-								type="text"
+								type="search"
 								value={value}
 								onChange={onChange}
 							/>

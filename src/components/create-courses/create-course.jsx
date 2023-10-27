@@ -87,7 +87,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 	}
 
 	return (
-		<Container fluid className='border  mt-1'>
+		<Container fluid className='border border-primary mt-1'>
 			<Form
 				name='createCourseForm'
 				// className={styles.createCourseForm}
@@ -148,13 +148,13 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 					// value={formState.duration}
 					onChange={handleChange}
 				/>
-				<Row xs='2' className='mt-1 mx-0'>
-					<AddNewAuthor
-						addAuthorToList={addNewAuthorToList}
-					/>
+				<Row xs='2' className='border border-info mt-2 mx-0'>
 					<AuthorsLists
 						authorsList={authorsList}
 						setAuthorsList={setAuthorsList}
+					/>
+					<AddNewAuthor
+						addAuthorToList={addNewAuthorToList}
 					/>
 				</Row>
 				<Button
@@ -164,7 +164,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 					size='sm'
 					type='submit'
 				>
-					Create course
+					Create
 				</Button>
 			</Form>
 		</Container>

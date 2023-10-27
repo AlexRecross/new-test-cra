@@ -20,7 +20,7 @@ export default function Courses({ courses, authors, showCreateCourse }) {
 	}
 
 	return (
-		<Container className='border my-1'>
+		<Container fluid className='border my-1'>
 			<Row className='mt-1'>
 				<SearchBar
 					value={searchValue}

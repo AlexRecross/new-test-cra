@@ -40,14 +40,14 @@ export default function AddNewAuthor({ addAuthorToList }) {
 				onChange={newName}
 			/>
 			<Button
-				className='mt-1'
+				className='mt-1 rounded-pill'
 				color='warning'
 				outline
 				size='sm'
 				type='button'
 				onClick={addNewAuthor}
 			>
-				Add author
+				Add
 			</Button>
 		</Col>
 	)

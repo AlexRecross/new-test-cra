@@ -20,7 +20,7 @@ function CoursesCards({courses, authors}) {
 						<div className='col-4 m-1'>
 							<dl className='row'>
 								<dt className='col-4'><b>Authors: </b></dt>
-								<dd className='col-8'>
+								<dd className='col-8 d-inline-block text-truncate'>
 									{authorsNameById(course.authors)}
 								</dd>
 								<dt className='col-4'><b>Durations: </b></dt>
