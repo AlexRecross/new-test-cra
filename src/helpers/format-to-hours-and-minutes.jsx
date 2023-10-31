@@ -1,6 +1,6 @@
 //hours to minutes
 
-export default function toHoursAndMinutes(totalMinutes) {
+export default function formatToHoursAndMinutes(totalMinutes) {
 	function padToTwoDigits(num) {
 		return num.toString().padStart(2, '0');
 	}

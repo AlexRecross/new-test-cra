@@ -8,8 +8,12 @@ import CreateCourse from "./components/create-courses/create-course";
 
 function App() {
 	//common data
-	const [courses, setCourses] = useState(mockedCoursesList)
 	const [authors, setAuthors] = useState(mockedAuthorsList)
+	const [courses, setCourses] = useState(mockedCoursesList.map(course => ({ ...course, authors: authorsNameById(course.authors)})))
+
+	function authorsNameById(authorsIDs) {
+		return authorsIDs.map( authorId => authors.find(({ id }) => id === authorId)?.name)
+	}
 
 	//template and render
 	const [page, setPage] = useState('courses')

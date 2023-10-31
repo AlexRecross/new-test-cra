@@ -15,7 +15,7 @@ export default function AddNewAuthor({ addAuthorToList }) {
 		return newAuthor
 	}
 
-	const newName = (event) => {
+	const onChangeHandler = (event) => {
 		setNewAuthorName(event.target.value)
 	}
 	function addNewAuthor() {
@@ -40,7 +40,7 @@ export default function AddNewAuthor({ addAuthorToList }) {
 					placeholder='Enter new author name'
 					type="text"
 					value={newAuthorName}
-					onChange={newName}
+					onChange={onChangeHandler}
 				/>
 				<Button
 					className='mt-1 col-2 rounded-end-pill'

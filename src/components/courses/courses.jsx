@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import { Container, Row } from 'reactstrap';
+import {CardColumns, Container, Row} from 'reactstrap';
 import SearchBar from './components/search-bar/search-bar';
-import CoursesCards from "./components/course-card/courses-cards";
+import CCard from "./components/course-card/card";
 
-export default function Courses({ courses, authors, showCreateCourse }) {
+export default function Courses({ courses, showCreateCourse }) {
 
 	//search component functionality
 	const [searchValue, setSearchValue] = useState('');
@@ -30,10 +30,16 @@ export default function Courses({ courses, authors, showCreateCourse }) {
 				/>
 			</Row>
 			<Row>
-				<CoursesCards
-					authors={authors}
-					courses={filteredCourses}
-				/>
+				<CardColumns className='mt-1'>
+					{filteredCourses.map((course) => {
+						return (
+							<CCard
+								key={course.id}
+								course={course}
+							/>
+						);
+					})}
+				</CardColumns>
 			</Row>
 		</Container>
 	);

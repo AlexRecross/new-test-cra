@@ -7,6 +7,7 @@ export default function SearchBar({ value, onChange, searchCourse, showCreateCou
 			<Row>
 				<Col sm='10'>
 					<Form
+						type='get'
 						onSubmit={searchCourse}
 					>
 						<InputGroup>

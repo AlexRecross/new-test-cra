@@ -1,12 +1,31 @@
 import React, {useEffect, useState} from 'react';
 import { Container, Button, Input, Label, Form, Row, Col } from "reactstrap";
-import toHoursAndMinutes from "../../common/to-hours-and-minutes";
+import formatToHoursAndMinutes from "../../helpers/format-to-hours-and-minutes";
 import AuthorsLists from "./component/authors-lists";
 import AddNewAuthor from "./component/create-new-author";
 import { v4 as uuidv4 } from 'uuid';
 
-function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
+function validateCourseFormData(course) {
+	if( course.title === '') {
+		alert('Field "Title" is not filled in!')
+		return false
+	}
+	if( course.description === '') {
+		alert('Field "Description" is not filled in!')
+		return false
+	}
+	if( course.authors.length < 2) {
+		alert('The course must include at least two authors!')
+		return false
+	}
+	if( course.duration <= 0) {
+		alert('Field "Duration" is not filled in!')
+		return false
+	}
+	return true
+}
 
+function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 	// AuthorsLists states and functionality
 	const [authorsList, setAuthorsList] = useState(authors);
 
@@ -16,7 +35,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 
 	//"Add New Author" functionality
 	function addNewAuthorToList(newAuthor) {
-		newAuthor !== undefined ? addAuthor(newAuthor) : console.log('newAuthor false',newAuthor)
+		newAuthor ? addAuthor(newAuthor) : console.log('newAuthor false',newAuthor)
 	}
 
 	// Form States, data and functionality
@@ -29,50 +48,28 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 		authors: []
 	})
 
-	const handleChange = (evnt) => {
+	const handleChange = (event) => {
 		setFormState((prev) => ({
 			...prev,
-			[evnt.target.name]: evnt.target.value
+			[event.target.name]: event.target.value
 		}));
 	};
 
 	function getAuthorsId() {
-		const authorsId = []
-		for(let i = 0; i < authorsList.length; i++) {
-			if(authorsList[i].selected){
-				let id = authorsList[i].id
-				authorsId.push(id)
+		return authorsList.reduce( (newArr, author) => {
+			if (author.selected) {
+				newArr.push(author.name);
 			}
-		}
-		return authorsId
-	}
-
-	function validateCourseFormData(course) {
-		if( course.title === '') {
-			alert('Field "Title" is not filled in!')
-			return false
-		}
-		if( course.description === '') {
-			alert('Field "Description" is not filled in!')
-			return false
-		}
-		if( course.authors.length < 2) {
-			alert('The course must include at least two authors!')
-			return false
-		}
-		if( course.duration <= 0) {
-			alert('Field "Duration" is not filled in!')
-			return false
-		}
-		return true
+			return newArr;
+		}, []);
 	}
 
 	function createNewCourse() {
-		const course = formState;
-		course.id= uuidv4();
-		course.creationDate= new Date().toLocaleString().slice(0,10).replace(/\./g,'/');
-		course.authors= getAuthorsId()
-		return course
+		return ({ ...formState,
+			id: uuidv4(),
+			creationDate: new Date().toLocaleString().slice(0,10).replace(/\./g,'/'),
+			authors: getAuthorsId()
+		})
 	}
 
 	function handleSubmit(e){
@@ -80,10 +77,9 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 		const course =createNewCourse()
 		if(!validateCourseFormData(course)){
 			return alert('Form not valid');
-		}else{
+		}
 			addCourse(course)
 			goToCourses()
-		}
 	}
 
 	return (
@@ -140,7 +136,7 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 								size='sm'
 								for='courseDuration'
 							>
-								<b>Duration: {toHoursAndMinutes(formState.duration)}</b>
+								<b>Duration: {formatToHoursAndMinutes(formState.duration)}</b>
 							</Label>
 							<Input
 								bsSize="sm"

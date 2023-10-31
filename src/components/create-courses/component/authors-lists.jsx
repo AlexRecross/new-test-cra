@@ -1,30 +1,16 @@
-import React, {useMemo} from "react";
-import { Button, List, Col, Row } from "reactstrap";
+import React from "react";
+import { Button, List, Row, Col } from "reactstrap";
 
 export default function AuthorsLists({ authorsList, setAuthorsList }) {
 
-	const authorsNotSelected = useMemo( () => {
-		return authorsList.filter(({ selected }) => !selected);
-	}, [authorsList])
-
-	const authorsSelected = useMemo( () => {
-		return authorsList.filter(({ selected }) => selected);
-	}, [authorsList])
-
 	function selectToggle(authorId) {
-		const newArray = authorsList.filter((author) => author.id !== authorId);
-		const author = authorsList.find(author => author.id === authorId);
-		author.selected === true ?	author.selected = false : author.selected = true;
-		newArray.push(author)
-		setAuthorsList(newArray)
+		setAuthorsList(authorsList.map(author => author.id === authorId ? { ...author, selected: !author.selected } : author))
 	}
 
 	return <Row xs='1' className='mt-1'>
-		{!authorsNotSelected.length ? <List type="unstyled">
-				<li><b>Available authors empty</b></li>
-			</List> : <List type="unstyled">
+			<List type="unstyled">
 				<b>Available authors:</b>
-				{authorsNotSelected.map((author) => <li  className='row mt-1' key={author.id}>
+				{authorsList.map(author => !author.selected ?  <li  className='row mt-1' key={author.id}>
 					<Col className='col-10 mt-1'>
 						<span>{author.name}</span>
 					</Col>
@@ -40,31 +26,28 @@ export default function AuthorsLists({ authorsList, setAuthorsList }) {
 							Select
 						</Button>
 					</Col>
-				</li>)}
+				</li> : null)}
 			</List >
-		}
-		{!authorsSelected.length ? <List type="unstyled">
-			<li><b>Authors not selected</b></li>
-		</List> : <List type="unstyled">
-			<b>Selected authors:</b>
-			{authorsSelected.map((author) => <li className='row mt-1' key={author.id}>
-				<Col className='col-10 mt-1'>
-					<span>{author.name}</span>
-				</Col>
-				<Col className='col-2'>
-					<Button
-						className='rounded-pill'
-						color='danger'
-						outline
-						size='sm'
-						type='button'
-						onClick={() => selectToggle(author.id)}
-					>
-						delete
-					</Button>
-				</Col>
-			</li>)}
-		</List>}
+			<List type="unstyled">
+				<b>Selected authors:</b>
+				{authorsList.map( author => author.selected ? <li className='row mt-1' key={author.id}>
+					<Col className='col-10 mt-1'>
+						<span>{author.name}</span>
+					</Col>
+					<Col className='col-2'>
+						<Button
+							className='rounded-pill'
+							color='danger'
+							outline
+							size='sm'
+							type='button'
+							onClick={() => selectToggle(author.id)}
+						>
+							delete
+						</Button>
+					</Col>
+				</li> : null)}
+			</List>
 	</Row>
 }
 
