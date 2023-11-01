@@ -25,7 +25,7 @@ function validateCourseFormData(course) {
 	return true
 }
 
-function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
+export default function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 	// AuthorsLists states and functionality
 	const [authorsList, setAuthorsList] = useState(authors);
 
@@ -174,4 +174,3 @@ function CreateCourse({authors, addAuthor, addCourse, goToCourses}) {
 		</div>
 	)
 }
-export default CreateCourse;

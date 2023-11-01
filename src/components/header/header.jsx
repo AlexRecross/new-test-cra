@@ -2,7 +2,7 @@ import React from 'react';
 import Logo from '../../common/logo'
 import { Button, Container, Row, Col } from 'reactstrap';
 
-function Header() {
+export default function Header() {
 	return (
 		<Container fluid className='border border-warning mt-1'>
 			<Row >
@@ -27,5 +27,3 @@ function Header() {
 		</Container>
 	);
 }
-
-export default Header;

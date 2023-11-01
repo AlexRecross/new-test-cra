@@ -4,7 +4,6 @@ import SearchBar from './components/search-bar/search-bar';
 import CCard from "./components/course-card/card";
 
 export default function Courses({ courses, showCreateCourse }) {
-
 	//search component functionality
 	const [searchValue, setSearchValue] = useState('');
 	const [filteredCourses, setFilteredCourses] = useState(courses)

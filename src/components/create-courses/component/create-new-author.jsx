@@ -14,7 +14,6 @@ export default function AddNewAuthor({ addAuthorToList }) {
 		setNewAuthorName('')
 		return newAuthor
 	}
-
 	const onChangeHandler = (event) => {
 		setNewAuthorName(event.target.value)
 	}

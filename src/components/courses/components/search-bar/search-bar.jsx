@@ -50,8 +50,6 @@ export default function SearchBar({ value, onChange, searchCourse, showCreateCou
 					</Button>
 				</Col>
 			</Row>
-
 		</Container>
-
-	);
+	)
 }

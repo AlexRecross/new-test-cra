@@ -20,7 +20,7 @@ export default function CCard ({course}) {
 						<dl className='row'>
 							<dt className='col-4'>Authors: </dt>
 							<dd className='col-8 d-inline-block text-truncate'>
-								{course.authors}
+								{course.authors.join(', ')}
 							</dd>
 							<dt className='col-4'>Durations: </dt>
 							<dd className='col-8'>
