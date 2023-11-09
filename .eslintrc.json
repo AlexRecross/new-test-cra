@@ -3,7 +3,10 @@
         "browser": true,
         "es2021": true
     },
-    "extends": ["react-app"],
+    "extends": [
+        "airbnb",
+        "eslint:recommended",
+        "react-app"],
     "parserOptions": {
         "ecmaFeatures": {
             "jsx": true
@@ -14,5 +17,12 @@
     "plugins": [
         "react"
     ],
-    "rules": {}
+    "rules": {
+        "react/prop-types": 0,
+        "no-tabs": 0,
+        "no-console": 0,
+        "no-alert": 0,
+        "consistent-return": 0,
+        "react/jsx-no-bind": 0
+    }
 }

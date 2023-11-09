@@ -1,38 +1,41 @@
 import React, { useState, useMemo } from 'react';
-import './App.css';
-import {mockedCoursesList, mockedAuthorsList} from "./Constants";
-import Header from './components/Header/Header.jsx';
-import Courses from './components/Courses/Courses';
-import CreateCourse from './components/Create courses/CreateCourse';
+import { Container } from 'reactstrap';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import { mockedCoursesList, mockedAuthorsList } from './constants';
+import Header from './components/header/header';
+import Courses from './components/courses/courses';
+import CreateCourse from './components/create-courses/create-course';
 
+export default function App() {
+  // common data
+  const [authors, setAuthors] = useState(mockedAuthorsList);
+  const [courses, setCourses] = useState(
+    mockedCoursesList.map((course) => ({ ...course, authors: authorsNameById(course.authors) })),
+  );
 
-function App() {
-	const [page, setPage] = useState('courses')
+  function authorsNameById(authorsIDs) {
+    return authorsIDs.map((authorId) => authors.find(({ id }) => id === authorId)?.name);
+  }
 
-	const [courses, setCourses] = useState(mockedCoursesList)
-	const [authors, setAuthors] = useState(mockedAuthorsList)
-
-
-	const Component = useMemo(() => {
-		switch (page) {
-			default: return Courses;
-			case 'create-courses': return CreateCourse;
-		}
-	}, [page])
-
-	return (
-		<div>
-			<Header />
-			<Component
-				courses={courses}
-				addCourse={course => setCourses(courses.concat(course))}
-				authors={authors}
-				addAuthor={author => setAuthors(authors.concat(author))}
-				goToCourses={() => setPage('courses')}
-				goToCreate={() => setPage('create-courses')}
-			/>
-		</div>
-	)
+  // template and render
+  const [page, setPage] = useState('courses');
+  const Component = useMemo(() => {
+    switch (page) {
+      case 'create-courses': return CreateCourse;
+      default: return Courses;
+    }
+  }, [page]);
+  return (
+    <Container fluid>
+      <Header />
+      <Component
+        courses={courses}
+        addCourse={(course) => setCourses(courses.concat(course))}
+        authors={authors}
+        addAuthor={(author) => setAuthors(authors.concat(author))}
+        goToCourses={() => setPage('courses')}
+        showCreateCourse={() => setPage('create-courses')}
+      />
+    </Container>
+  );
 }
-
-export default App;
